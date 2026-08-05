@@ -1,6 +1,6 @@
 # 🏋️⚡ NAOOLIFT - MASTER SPECIFICATION BLUEPRINT
 
-Dokumen ini adalah **Master Reference Blueprint** untuk seluruh modul, fitur, arsitektur teknis, integrasi notifikasi, Google Calendar, dan alur pengerjaan sub-aplikasi **NaooLift** (Next.js + Golang API Stack).
+Dokumen ini adalah **Master Reference Blueprint** untuk seluruh modul, fitur, arsitektur teknis, integrasi notifikasi, Google Calendar, serta **Anti-Slop Design System (taste-skill)** sub-aplikasi **NaooLift** (Next.js + Golang API Stack).
 
 ---
 
@@ -8,11 +8,13 @@ Dokumen ini adalah **Master Reference Blueprint** untuk seluruh modul, fitur, ar
 
 - **Frontend Project**: `z:\Portofolio\NaooLift\frontend`
   - Framework: **Next.js 14+ (App Router)** + TypeScript + Tailwind CSS.
-  - UI Style: **Minimalist, Clean, High-Contrast Dark Mode** (Inspirasi: Hevy App & Linear.app — *bebas dari Neobrutalism*).
+  - UI Design System: **Anti-Slop Design Framework (`z:\Portofolio\NaooLift\taste-skill`)**.
+  - Style: **Minimalist, Clean, High-Contrast Dark Mode** (Inspirasi: Hevy App, Strong, & Linear.app).
   - Responsif: Layout desktop & Mobile Bottom Navigation Bar.
 - **Backend API Project**: `z:\Portofolio\NaooLift\backend`
   - Language: **Go (Golang)** REST API Server (`main.go`, `go.mod`).
   - ORM / DB: GORM + SQLite / PostgreSQL.
+- **Design Skill Reference**: `z:\Portofolio\NaooLift\taste-skill`
 - **GitHub Repository**:
   - URL: **`https://github.com/zysrnh/NaooLift_Project.git`**
 
