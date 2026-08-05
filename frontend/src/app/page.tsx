@@ -63,7 +63,7 @@ export default function LandingPage() {
   const todayRoutine = routines.length > 0 ? routines[0] : null;
 
   return (
-    <div className="space-y-12 py-4 animate-fadeIn">
+    <div className="space-y-12 py-2 animate-fadeIn">
       {/* Editorial Hero Section */}
       <section className="solid-card p-8 sm:p-12 space-y-6">
         <div className="max-w-3xl space-y-4">
