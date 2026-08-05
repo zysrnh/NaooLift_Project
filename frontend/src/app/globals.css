@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-main: #0B0F19;
+    --card-bg: #111827;
+    --card-hover: #1F2937;
+    --border-color: #1F2937;
+    --accent-primary: #3B82F6;
+    --accent-cyan: #06B6D4;
+    --accent-emerald: #10B981;
+    --accent-amber: #F59E0B;
+    --accent-purple: #8B5CF6;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: #F9FAFB;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0F19;
+}
+::-webkit-scrollbar-thumb {
+  background: #1F2937;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #374151;
+}
+
+/* Clean minimal card */
+.clean-card {
+  background-color: #111827;
+  border: 1px solid #1F2937;
+  border-radius: 1rem;
+}
+
+.clean-card-hover {
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.clean-card-hover:hover {
+  border-color: #374151;
+}
+
+/* Custom input styling */
+.clean-input {
+  background-color: #030712;
+  border: 1px solid #1F2937;
+  border-radius: 0.75rem;
+  color: #F9FAFB;
+  transition: border-color 0.2s ease;
+}
+.clean-input:focus {
+  outline: none;
+  border-color: #3B82F6;
+}
