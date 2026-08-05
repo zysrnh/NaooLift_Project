@@ -2,6 +2,7 @@ export interface UserProfile {
   id: string;
   name: string;
   email: string;
+  role: 'admin' | 'user';
   created_at: string;
 }
 
@@ -19,16 +20,18 @@ export function getCurrentUser(): UserProfile | null {
 }
 
 export async function loginUser(email: string, password: string): Promise<{ success: boolean; message?: string; user?: UserProfile }> {
-  // In production, this calls Go API backend POST /api/auth/login
   if (!email || !password) {
     return { success: false, message: 'Email dan password wajib diisi.' };
   }
 
-  // Simulated authentication & local session persistence
+  // Admin login check
+  const isAdmin = email.toLowerCase() === 'admin@naoo.app' || email.toLowerCase().includes('admin');
+  
   const user: UserProfile = {
-    id: `usr-${Date.now()}`,
-    name: email.split('@')[0].toUpperCase(),
+    id: isAdmin ? 'usr-admin-01' : `usr-${Date.now()}`,
+    name: isAdmin ? 'Admin Naoo' : email.split('@')[0].toUpperCase(),
     email: email,
+    role: isAdmin ? 'admin' : 'user',
     created_at: new Date().toISOString(),
   };
 
@@ -40,7 +43,6 @@ export async function loginUser(email: string, password: string): Promise<{ succ
 }
 
 export async function registerUser(name: string, email: string, password: string): Promise<{ success: boolean; message?: string }> {
-  // In production, this calls Go API backend POST /api/auth/register
   if (!name || !email || !password) {
     return { success: false, message: 'Semua kolom data wajib diisi.' };
   }
@@ -49,6 +51,7 @@ export async function registerUser(name: string, email: string, password: string
     id: `usr-${Date.now()}`,
     name,
     email,
+    role: 'user',
     created_at: new Date().toISOString(),
   };
 

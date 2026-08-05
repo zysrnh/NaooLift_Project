@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Dumbbell, Lock, Mail, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Dumbbell, Lock, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
 import { loginUser } from '@/lib/auth';
 
 export default function LoginPage() {
@@ -20,8 +20,12 @@ export default function LoginPage() {
 
     try {
       const res = await loginUser(email, password);
-      if (res.success) {
-        router.push('/logger');
+      if (res.success && res.user) {
+        if (res.user.role === 'admin') {
+          router.push('/admin');
+        } else {
+          router.push('/logger');
+        }
       } else {
         setErrorMsg(res.message || 'Email atau password salah.');
       }
@@ -30,6 +34,11 @@ export default function LoginPage() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const fillAdminCredentials = () => {
+    setEmail('admin@naoo.app');
+    setPassword('admin123');
   };
 
   return (
@@ -47,8 +56,20 @@ export default function LoginPage() {
             MASUK KE AKUN
           </h1>
           <p className="text-xs text-[#B3B7BA]">
-            Masukkan email dan password untuk melanjutkan sesi latihan gym kamu.
+            Masukkan email dan password untuk melanjutkan ke Sesi Gym atau Dashboard Admin.
           </p>
+        </div>
+
+        {/* Quick Admin Auth Button */}
+        <div className="bg-[#090F15] p-3 rounded-sm flex items-center justify-between">
+          <span className="text-[10px] font-mono text-[#B3B7BA]">LOGIN ADMIN DASHBOARD</span>
+          <button
+            type="button"
+            onClick={fillAdminCredentials}
+            className="text-[10px] font-heading font-bold text-[#D3D1CE] border border-[#262E36] px-2.5 py-1 rounded-sm hover:bg-[#262E36] transition-colors flex items-center gap-1"
+          >
+            <ShieldCheck className="w-3 h-3 text-emerald-400" /> Auto-Fill Admin
+          </button>
         </div>
 
         {/* Error Alert */}
@@ -68,7 +89,7 @@ export default function LoginPage() {
               <Mail className="w-4 h-4 text-[#B3B7BA] absolute left-3 top-3" />
               <input
                 type="email"
-                placeholder="nama@domain.com"
+                placeholder="nama@domain.com atau admin@naoo.app"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="solid-input w-full pl-9 pr-4 py-2.5 text-xs"
