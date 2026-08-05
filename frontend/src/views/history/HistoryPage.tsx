@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Trophy, Calendar, Dumbbell, Award, Clock, TrendingUp, Camera } from 'lucide-react';
+import { Trophy, Calendar, Dumbbell, Award, Clock, TrendingUp, Camera, Shield } from 'lucide-react';
 import { getWorkoutLogs, getBodyLogs, DEFAULT_EXERCISES, WorkoutLog, BodyLog } from '@/lib/api';
 
 export default function HistoryPage() {
@@ -29,6 +29,15 @@ export default function HistoryPage() {
     });
   });
 
+  const rankBadges = [
+    { name: 'Iron Novice', minVolume: '0 - 5.000 kg', img: '/ranks/iron.png', color: 'border-slate-500' },
+    { name: 'Bronze Lifter', minVolume: '5.000 - 25.000 kg', img: '/ranks/bronze.png', color: 'border-amber-700' },
+    { name: 'Silver Beast', minVolume: '25.000 - 75.000 kg', img: '/ranks/silver.png', color: 'border-slate-400' },
+    { name: 'Gold Athlete', minVolume: '75.000 - 200.000 kg', img: '/ranks/gold.png', color: 'border-amber-500' },
+    { name: 'Platinum Titan', minVolume: '200.000 - 500.000 kg', img: '/ranks/platinum.png', color: 'border-cyan-400' },
+    { name: 'Gym God / Legend', minVolume: '500.000+ kg', img: '/ranks/legend.png', color: 'border-purple-500' },
+  ];
+
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* Header */}
@@ -42,8 +51,30 @@ export default function HistoryPage() {
         </h1>
       </div>
 
-      {/* Trophy Room: Top PR Cards */}
+      {/* Official Gym Rank Badges Showcase */}
       <div className="space-y-4">
+        <h2 className="text-lg font-heading font-bold text-[#D3D1CE] flex items-center gap-2">
+          <Shield className="w-4 h-4 text-[#D3D1CE]" />
+          Level Gym Rank Badges (Peringkat Angkatan Member)
+        </h2>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          {rankBadges.map((badge, idx) => (
+            <div key={idx} className={`solid-card p-4 text-center space-y-2 border-t-2 ${badge.color}`}>
+              <img
+                src={badge.img}
+                alt={badge.name}
+                className="w-16 h-16 object-contain mx-auto drop-shadow-[0_4px_12px_rgba(255,255,255,0.25)] hover:scale-110 transition-transform"
+              />
+              <div className="font-heading font-bold text-xs text-[#D3D1CE]">{badge.name}</div>
+              <div className="text-[10px] font-mono text-[#B3B7BA]">{badge.minVolume}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Trophy Room: Top PR Cards */}
+      <div className="space-y-4 pt-2">
         <h2 className="text-lg font-heading font-bold text-[#D3D1CE] flex items-center gap-2">
           <Award className="w-4 h-4 text-[#D3D1CE]" />
           Rekor Angkatan Terberat (Personal Records)

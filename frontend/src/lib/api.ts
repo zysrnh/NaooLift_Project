@@ -66,6 +66,7 @@ export interface UserRank {
   min_volume: number;
   max_volume: number;
   progress_percent: number;
+  rank_icon: string;
 }
 
 // ── Gym Rank Calculation ──────────────────────────────────────────────────────
@@ -80,6 +81,7 @@ export function calculateUserRank(totalVolumeKg: number): UserRank {
       min_volume: 500000,
       max_volume: 1000000,
       progress_percent: 100,
+      rank_icon: '/ranks/legend.png',
     };
   } else if (totalVolumeKg >= 200000) {
     const min = 200000;
@@ -94,6 +96,7 @@ export function calculateUserRank(totalVolumeKg: number): UserRank {
       min_volume: min,
       max_volume: max,
       progress_percent: pct,
+      rank_icon: '/ranks/platinum.png',
     };
   } else if (totalVolumeKg >= 75000) {
     const min = 75000;
@@ -108,6 +111,7 @@ export function calculateUserRank(totalVolumeKg: number): UserRank {
       min_volume: min,
       max_volume: max,
       progress_percent: pct,
+      rank_icon: '/ranks/gold.png',
     };
   } else if (totalVolumeKg >= 25000) {
     const min = 25000;
@@ -122,6 +126,7 @@ export function calculateUserRank(totalVolumeKg: number): UserRank {
       min_volume: min,
       max_volume: max,
       progress_percent: pct,
+      rank_icon: '/ranks/silver.png',
     };
   } else if (totalVolumeKg >= 5000) {
     const min = 5000;
@@ -136,6 +141,7 @@ export function calculateUserRank(totalVolumeKg: number): UserRank {
       min_volume: min,
       max_volume: max,
       progress_percent: pct,
+      rank_icon: '/ranks/bronze.png',
     };
   } else {
     const min = 0;
@@ -150,6 +156,7 @@ export function calculateUserRank(totalVolumeKg: number): UserRank {
       min_volume: min,
       max_volume: max,
       progress_percent: pct,
+      rank_icon: '/ranks/iron.png',
     };
   }
 }
