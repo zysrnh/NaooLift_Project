@@ -73,9 +73,9 @@ export interface UserRank {
 export function calculateUserRank(totalVolumeKg: number): UserRank {
   if (totalVolumeKg >= 500000) {
     return {
-      rank_name: 'Gym God / Naoo Legend',
+      rank_name: 'LEGEND',
       tier_level: 6,
-      badge_color: '#8B5CF6',
+      badge_color: '#A855F7',
       bg_gradient: 'from-purple-600 to-indigo-600',
       current_volume: totalVolumeKg,
       min_volume: 500000,
@@ -88,7 +88,7 @@ export function calculateUserRank(totalVolumeKg: number): UserRank {
     const max = 500000;
     const pct = Math.min(100, Math.round(((totalVolumeKg - min) / (max - min)) * 100));
     return {
-      rank_name: 'Platinum Titan',
+      rank_name: 'PLATINUM',
       tier_level: 5,
       badge_color: '#06B6D4',
       bg_gradient: 'from-cyan-500 to-blue-600',
@@ -103,7 +103,7 @@ export function calculateUserRank(totalVolumeKg: number): UserRank {
     const max = 200000;
     const pct = Math.min(100, Math.round(((totalVolumeKg - min) / (max - min)) * 100));
     return {
-      rank_name: 'Gold Athlete',
+      rank_name: 'GOLD',
       tier_level: 4,
       badge_color: '#F59E0B',
       bg_gradient: 'from-amber-500 to-yellow-600',
@@ -118,9 +118,9 @@ export function calculateUserRank(totalVolumeKg: number): UserRank {
     const max = 75000;
     const pct = Math.min(100, Math.round(((totalVolumeKg - min) / (max - min)) * 100));
     return {
-      rank_name: 'Silver Beast',
+      rank_name: 'SILVER',
       tier_level: 3,
-      badge_color: '#94A3B8',
+      badge_color: '#CBD5E1',
       bg_gradient: 'from-slate-400 to-slate-600',
       current_volume: totalVolumeKg,
       min_volume: min,
@@ -133,9 +133,9 @@ export function calculateUserRank(totalVolumeKg: number): UserRank {
     const max = 25000;
     const pct = Math.min(100, Math.round(((totalVolumeKg - min) / (max - min)) * 100));
     return {
-      rank_name: 'Bronze Lifter',
+      rank_name: 'BRONZE',
       tier_level: 2,
-      badge_color: '#D97706',
+      badge_color: '#F97316',
       bg_gradient: 'from-amber-700 to-amber-900',
       current_volume: totalVolumeKg,
       min_volume: min,
@@ -148,9 +148,9 @@ export function calculateUserRank(totalVolumeKg: number): UserRank {
     const max = 5000;
     const pct = Math.min(100, Math.round((totalVolumeKg / max) * 100));
     return {
-      rank_name: 'Iron Novice',
+      rank_name: 'IRON',
       tier_level: 1,
-      badge_color: '#64748B',
+      badge_color: '#94A3B8',
       bg_gradient: 'from-slate-600 to-slate-800',
       current_volume: totalVolumeKg,
       min_volume: min,

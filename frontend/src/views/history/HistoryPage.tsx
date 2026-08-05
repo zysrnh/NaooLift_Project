@@ -30,12 +30,12 @@ export default function HistoryPage() {
   });
 
   const rankBadges = [
-    { name: 'Iron Novice', minVolume: '0 - 5.000 kg', img: '/ranks/iron.png', color: 'border-slate-500' },
-    { name: 'Bronze Lifter', minVolume: '5.000 - 25.000 kg', img: '/ranks/bronze.png', color: 'border-amber-700' },
-    { name: 'Silver Beast', minVolume: '25.000 - 75.000 kg', img: '/ranks/silver.png', color: 'border-slate-400' },
-    { name: 'Gold Athlete', minVolume: '75.000 - 200.000 kg', img: '/ranks/gold.png', color: 'border-amber-500' },
-    { name: 'Platinum Titan', minVolume: '200.000 - 500.000 kg', img: '/ranks/platinum.png', color: 'border-cyan-400' },
-    { name: 'Gym God / Legend', minVolume: '500.000+ kg', img: '/ranks/legend.png', color: 'border-purple-500' },
+    { name: 'IRON', minVolume: '0 - 5.000 kg', img: '/ranks/iron.png', color: 'border-slate-400' },
+    { name: 'BRONZE', minVolume: '5.000 - 25.000 kg', img: '/ranks/bronze.png', color: 'border-orange-500' },
+    { name: 'SILVER', minVolume: '25.000 - 75.000 kg', img: '/ranks/silver.png', color: 'border-slate-300' },
+    { name: 'GOLD', minVolume: '75.000 - 200.000 kg', img: '/ranks/gold.png', color: 'border-amber-500' },
+    { name: 'PLATINUM', minVolume: '200.000 - 500.000 kg', img: '/ranks/platinum.png', color: 'border-cyan-400' },
+    { name: 'LEGEND', minVolume: '500.000+ kg', img: '/ranks/legend.png', color: 'border-purple-500' },
   ];
 
   return (
@@ -66,7 +66,7 @@ export default function HistoryPage() {
                 alt={badge.name}
                 className="w-16 h-16 object-contain mx-auto drop-shadow-[0_4px_12px_rgba(255,255,255,0.25)] hover:scale-110 transition-transform"
               />
-              <div className="font-heading font-bold text-xs text-[#D3D1CE]">{badge.name}</div>
+              <div className="font-heading font-black text-xs text-[#D3D1CE] tracking-wider">{badge.name}</div>
               <div className="text-[10px] font-mono text-[#B3B7BA]">{badge.minVolume}</div>
             </div>
           ))}
