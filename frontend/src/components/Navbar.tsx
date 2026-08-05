@@ -16,9 +16,9 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Top Solid Header */}
-      <header className="bg-[#090F15] border-b border-[#6C6D74]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      {/* Top Solid Header - Full Width */}
+      <header className="bg-[#090F15] border-b border-[#6C6D74] w-full">
+        <div className="w-full px-4 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-sm bg-[#D3D1CE] flex items-center justify-center text-[#090F15]">
               <Dumbbell className="w-4 h-4 -rotate-12" />

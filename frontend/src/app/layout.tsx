@@ -17,7 +17,8 @@ export default function RootLayout({
       <body className="bg-[#090F15] text-[#D3D1CE] min-h-screen flex flex-col antialiased">
         <Navbar />
 
-        <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 md:pb-12">
+        {/* Maximized Full-Width Container without restricted side gaps */}
+        <main className="flex-1 w-full px-4 sm:px-8 lg:px-12 py-8 pb-24 md:pb-12">
           {children}
         </main>
       </body>
