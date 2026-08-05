@@ -1,19 +1,19 @@
 # NAOOLIFT AGENT DESIGN & CODING RULES
 
-## 🎨 Design System & Taste Skill Directives
-- **Always read and follow `taste-skill` rules** in `z:\Portofolio\NaooLift\taste-skill` and `.agents/skills/`.
-- **Color Palette (`Plate.jpg`)**:
-  - `Caviar`: `#010101` (Background Canvas)
-  - `Rein`: `#121212` / `#1A1919` / `#242222` (Cards & Surfaces)
-  - `Shadow`: `#312E2E` / `#4E4949` (Borders & Dividers)
-  - `Mustang`: `#7D7D7D` (Muted Secondary Text)
-  - `Text Light`: `#F9F9F9` / `#FFFFFF` (Primary Titles & Numbers)
-  - `Accent Gold / Amber`: `#F59E0B` (Rank & PR Highlights)
-  - `Accent Emerald`: `#10B981` (Completed Set Actions)
-- **Folder & Data Architecture**:
-  - Keep code modular, clean, and well-structured:
-    - `src/types/` (TypeScript definitions)
-    - `src/lib/` (Data service & rank logic)
-    - `src/components/ui/` (Reusable clean UI elements)
-    - `src/components/gym/` (Domain-specific workout & rank components)
-    - `src/app/` (Next.js Pages)
+## 🎨 Solid Anti-Slop Palette (No Glass, No Pills, No AI Clichés)
+- **Midnight**: `#090F15` (Solid Canvas Background)
+- **Mountainside**: `#262E36` (Solid Card Surfaces & Panels)
+- **Apres Ski**: `#6C6D74` (Crisp Borders & Divider Lines)
+- **Slopes**: `#B3B7BA` (Secondary Subtext & Meta Data)
+- **Artic**: `#D3D1CE` / `#FFFFFF` (Primary Crisp Typography & Headlines)
+
+## 🚫 Negative Constraints (Banned AI Slop Elements)
+- **NO `rounded-full` / Pill-shaped badges or containers**. Border radius must be crisp (`4px` to `8px`).
+- **NO glassmorphism, NO backdrop-blur, NO background gradients**. All surfaces must use SOLID colors from the palette.
+- **NO AI clichés or badges** ("System Active", "Next-Gen", "Seamless", "Unleash"). Write plain, editorial, utilitarian copy.
+- **NO heavy shadows**. Cards use flat 1px solid `#6C6D74` borders.
+
+## 🔤 Typography & Layout
+- **Headings & Key Metrics**: `Space Grotesk` (tight tracking `-0.02em`, sharp weight).
+- **Body & Controls**: `Manrope` (generous line height `1.6`).
+- **Structure**: Clean bento grid, macro whitespace (`py-16` / `py-24`), solid contrast.

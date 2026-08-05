@@ -1,70 +1,118 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/SpaceGrotesk-Variable.ttf') format('truetype');
+  font-weight: 300 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/Manrope-Variable.ttf') format('truetype');
+  font-weight: 200 800;
+  font-display: swap;
+}
+
 @layer base {
   :root {
-    /* Palette from Plate.jpg (Luxury Dark Monochromatic) */
-    --color-caviar: #010101;     /* Pure Velvet Canvas */
-    --color-rein-dark: #121212;  /* Deep Surface */
-    --color-rein: #1A1919;       /* Primary Card Surface */
-    --color-rein-hover: #262424; /* Card Hover Surface */
-    --color-shadow: #3E3A3A;     /* Crisp Border & Divider */
-    --color-shadow-light: #524C4C;
-    --color-mustang: #7D7D7D;    /* Muted Secondary Text */
-    --color-text-white: #F9F9F9; /* High-Contrast Headings & Numbers */
-    
-    /* Accents */
-    --accent-gold: #F59E0B;
-    --accent-emerald: #10B981;
-    --accent-cyan: #06B6D4;
+    /* Exact Solid Palette */
+    --color-midnight: #090F15;     /* Canvas Background */
+    --color-mountainside: #262E36; /* Card Surface */
+    --color-apres-ski: #6C6D74;    /* Border & Dividers */
+    --color-slopes: #B3B7BA;       /* Secondary Subtext */
+    --color-artic: #D3D1CE;        /* Primary Typography */
   }
 
   body {
-    background-color: var(--color-caviar);
-    color: var(--color-text-white);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Geist Sans", "Segoe UI", Roboto, sans-serif;
+    background-color: #090F15;
+    color: #D3D1CE;
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
     overflow-x: hidden;
     letter-spacing: -0.01em;
   }
+
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  .font-mono {
+    font-family: 'Space Grotesk', monospace;
+  }
 }
 
-/* Custom scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #010101;
+  background: #090F15;
 }
 ::-webkit-scrollbar-thumb {
-  background: #3E3A3A;
-  border-radius: 4px;
+  background: #262E36;
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #524C4C;
+  background: #6C6D74;
 }
 
-/* Taste Skill Clean Card System */
-.taste-card {
-  background-color: #1A1919;
-  border: 1px solid #3E3A3A;
-  border-radius: 12px;
-  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+/* Taste Skill Anti-Slop Solid Card System */
+.solid-card {
+  background-color: #262E36;
+  border: 1px solid #6C6D74;
+  border-radius: 6px;
+  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.taste-card:hover {
-  border-color: #524C4C;
+.solid-card:hover {
+  border-color: #B3B7BA;
 }
 
-/* Taste Skill Clean Input */
-.taste-input {
-  background-color: #0F0E0E;
-  border: 1px solid #3E3A3A;
-  border-radius: 8px;
-  color: #F9F9F9;
+/* Solid Button */
+.solid-btn-primary {
+  background-color: #D3D1CE;
+  color: #090F15;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.solid-btn-primary:hover {
+  background-color: #FFFFFF;
+}
+
+.solid-btn-primary:active {
+  transform: scale(0.98);
+}
+
+.solid-btn-secondary {
+  background-color: #262E36;
+  color: #D3D1CE;
+  border: 1px solid #6C6D74;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  border-radius: 4px;
   transition: border-color 0.2s ease;
 }
 
-.taste-input:focus {
+.solid-btn-secondary:hover {
+  border-color: #D3D1CE;
+  color: #FFFFFF;
+}
+
+/* Solid Input */
+.solid-input {
+  background-color: #090F15;
+  border: 1px solid #6C6D74;
+  border-radius: 4px;
+  color: #D3D1CE;
+  font-family: 'Space Grotesk', monospace;
+}
+
+.solid-input:focus {
   outline: none;
-  border-color: #7D7D7D;
+  border-color: #D3D1CE;
 }

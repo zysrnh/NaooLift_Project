@@ -1,6 +1,6 @@
 # 🏋️⚡ NAOOLIFT - MASTER SPECIFICATION BLUEPRINT
 
-Dokumen ini adalah **Master Reference Blueprint** untuk seluruh modul, fitur, arsitektur teknis, integrasi notifikasi, Google Calendar, serta **Anti-Slop Design System (taste-skill)** sub-aplikasi **NaooLift** (Next.js + Golang API Stack).
+Dokumen ini adalah **Master Reference Blueprint** untuk seluruh modul, fitur, arsitektur teknis, integrasi notifikasi, Google Calendar, serta **MySQL Database & Modern Deep Slate Design System** sub-aplikasi **NaooLift** (Next.js + Golang API Stack).
 
 ---
 
@@ -8,19 +8,21 @@ Dokumen ini adalah **Master Reference Blueprint** untuk seluruh modul, fitur, ar
 
 - **Frontend Project**: `z:\Portofolio\NaooLift\frontend`
   - Framework: **Next.js 14+ (App Router)** + TypeScript + Tailwind CSS.
-  - UI Design System: **Anti-Slop Design Framework (`z:\Portofolio\NaooLift\taste-skill`)**.
-  - Color Palette (`Plate.jpg`):
-    - **Caviar** (`#010101`): Pure Velvet Black Canvas
-    - **Rein** (`#181717` / `#242222`): Dark Slate Cards & Surfaces
-    - **Shadow** (`#3E3A3A` / `#4E4949`): Subtle Crisp Dividers & Borders
-    - **Mustang** (`#7D7D7D`): Muted Secondary Text & Subtitles
-    - **Pure White** (`#F9F9F9`): Primary Crisp Headings & Weight Numbers
-    - **Gold / Amber** (`#F59E0B`): PR Badges & Gym Rank Tiers
-    - **Emerald** (`#10B981`): Completed Set Action Highlights
-  - Responsif: Layout desktop & Mobile Bottom Navigation Bar.
+  - UI Design System: **Modern Deep Slate Dark (Anti-Slop Vercel/Linear Aesthetic)**.
+  - Color Palette:
+    - **Background Canvas**: `#0B0F19` (Deep Charcoal Slate)
+    - **Surface / Cards**: `#1E293B` (Elevated Slate Blue-Gray)
+    - **Border & Dividers**: `#334155` (Crisp High-Contrast Border)
+    - **Primary Text**: `#F8FAFC` (Pure Bright Slate White)
+    - **Secondary Text**: `#94A3B8` (Clear Readable Subtitles)
+    - **Gold / Amber Accent**: `#F59E0B` (Rank Tiers & PR Badges)
+    - **Emerald Accent**: `#10B981` (Completed Set Actions & Positive Trends)
+    - **Electric Blue Accent**: `#3B82F6` (Primary CTA Buttons & Highlights)
+  - Responsif: Desktop & Mobile Bottom Navigation Bar.
 - **Backend API Project**: `z:\Portofolio\NaooLift\backend`
   - Language: **Go (Golang)** REST API Server (`main.go`, `go.mod`).
-  - ORM / DB: GORM + SQLite / PostgreSQL.
+  - Database: **MySQL** (`127.0.0.1:3306`, Database: `naoolift_db`, ORM: GORM).
+- **Design Skill Reference**: `z:\Portofolio\NaooLift\taste-skill`
 - **GitHub Repository**:
   - URL: **`https://github.com/zysrnh/NaooLift_Project.git`**
 
@@ -55,7 +57,7 @@ Dokumen ini adalah **Master Reference Blueprint** untuk seluruh modul, fitur, ar
      - Tombol Centang Completed (`[✓]`)
 2. **Fitur Rest Timer & Sistem Notifikasi Push (iOS & Android)** 🔔:
    - Timer hitung mundur otomatis (30s, 60s, 90s, 120s, custom).
-   - **Push Notification Native iOS & Android**: Banner notifikasi + getar HP + suara chime saat jeda istirahat selesai (bahkan saat HP dikunci/di kantong celana).
+   - **Push Notification Native iOS & Android**: Banner notifikasi + getar HP + suara chime saat jeda istirahat selesai.
 3. **Catatan Tambahan (Session & Set Notes)**:
    - Kolom catatan fleksibel per sesi & per set (misal: *"Beban ditambah minggu depan"*, *"Form terasa kurang oke pada set ke-3"*).
 
@@ -86,17 +88,21 @@ Sistem Peringkat Level Gym berdasarkan akumulasi total volume angkatan (`kg`):
 | **Tier 5** | **Platinum Titan** | 200.001 - 500.000 kg | Platinum Cyan (`#06B6D4`) |
 | **Tier 6** | **Gym God / Naoo Legend** | 500.000+ kg | Emerald Violet Glow (`#8B5CF6`) |
 
-*Fitur Rank mencakup Progress Bar EXP Volume menuju rank berikutnya & Multiplier Bonus Streak Latihan.*
-
 ---
 
-### 📱 Modul E: PWA & Mobile App Wrapper (Tampilan Web -> APK HP)
-1. **Progressive Web App (PWA)**:
-   - Menambahkan `manifest.json` & Service Worker PWA di Next.js.
-   - Support PWA iOS (Safari "Add to Home Screen") & Android (Chrome "Install App").
-   - Muncul sebagai ikon aplikasi di Home Screen HP, terbuka **Fullscreen tanpa URL bar**, dan berkinerja 100% seperti Aplikasi Native.
-2. **WebView APK Wrapper**:
-   - Mempersiapkan konfigurasi WebView ringan (Capacitor/TWA) untuk menghasilkan file `.apk` asli jika ingin langsung di-install di Android.
+### 🗄️ Modul E: Database Schema MySQL & Go GORM
+
+```sql
+CREATE DATABASE IF NOT EXISTS naoolift_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+Tabel GORM:
+1. `exercises` (`id`, `name`, `muscle_group`, `category_type`, `equipment`)
+2. `routines` (`id`, `user_id`, `title`, `day_of_week`, `time_of_day`, `description`)
+3. `routine_exercises` (`id`, `routine_id`, `exercise_id`, `target_sets`, `target_reps`, `target_weight_kg`, `rest_seconds`)
+4. `workout_logs` (`id`, `user_id`, `routine_id`, `title`, `date`, `time_logged`, `duration_minutes`, `total_volume_kg`, `notes`, `feeling_rating`)
+5. `workout_sets` (`id`, `workout_log_id`, `exercise_id`, `set_number`, `weight_kg`, `reps`, `is_completed`, `is_pr`, `notes`)
+6. `body_logs` (`id`, `user_id`, `date`, `weight_kg`, `photo_url`, `notes`)
 
 ---
 
@@ -105,12 +111,8 @@ Setelah seluruh fitur selesai dibuat & teruji:
 ```bash
 git init
 git add .
-git commit -m "feat: complete NaooLift core features, clean UI, rank system, Google Calendar, PWA & analytics"
+git commit -m "feat: complete NaooLift MySQL Go API, High-Contrast Deep Slate UI, Rank System, & Analytics"
 git branch -M main
 git remote add origin https://github.com/zysrnh/NaooLift_Project.git
 git push -u origin main
 ```
-
----
-
-*Dokumen Master Blueprint ini dikunci dan menjadi acuan utama sebelum eksekusi pengerjaan.*

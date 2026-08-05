@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Play, Trophy, Calendar, Dumbbell, ArrowUpRight, Scale, Plus, Check, Shield, Flame, Camera } from 'lucide-react';
 import { getRoutines, getWorkoutLogs, getBodyLogs, saveBodyLog, calculateUserRank, Routine, WorkoutLog, BodyLog, UserRank } from '@/lib/api';
 
-export default function Dashboard() {
+export default function LandingPage() {
   const [routines, setRoutines] = useState<Routine[]>([]);
   const [logs, setLogs] = useState<WorkoutLog[]>([]);
   const [bodyLogs, setBodyLogs] = useState<BodyLog[]>([]);
@@ -21,8 +21,7 @@ export default function Dashboard() {
 
   const totalVolume = logs.reduce((acc, log) => acc + (log.total_volume_kg || 0), 0);
   const totalWorkouts = logs.length;
-  
-  // Calculate PR count
+
   let prCount = 0;
   logs.forEach(log => {
     log.sets.forEach(set => {
@@ -64,149 +63,163 @@ export default function Dashboard() {
   const todayRoutine = routines.length > 0 ? routines[0] : null;
 
   return (
-    <div className="space-y-8 animate-fadeIn">
-      {/* Top Banner & Hero Section */}
-      <div className="taste-card p-6 sm:p-8 bg-gradient-to-r from-[#181717] via-[#1A1919] to-[#121212] relative overflow-hidden">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F0E0E] border border-[#3E3A3A] text-xs font-mono text-[#7D7D7D] uppercase tracking-wider">
-              <span>●</span> System Active • NaooLift
-            </div>
-            <h1 className="text-3xl sm:text-4xl font-black text-[#F9F9F9] tracking-tight">
-              Selamat Datang Kembali, Zaki
-            </h1>
-            <p className="text-[#7D7D7D] text-xs sm:text-sm max-w-xl">
-              Target hari ini adalah melampaui <span className="text-[#F9F9F9] font-semibold">Progressive Overload</span>. Catat setiap angkatan untuk membuka peringkat rank gym selanjutnya.
-            </p>
+    <div className="space-y-12 py-4 animate-fadeIn">
+      {/* Editorial Hero Section */}
+      <section className="solid-card p-8 sm:p-12 space-y-6">
+        <div className="max-w-3xl space-y-4">
+          <div className="text-xs font-mono text-[#B3B7BA] uppercase tracking-widest">
+            NAOOLIFT / WORKOUT LOG & GYM SCHEDULER
           </div>
+          <h1 className="text-4xl sm:text-5xl font-heading font-extrabold text-[#D3D1CE] leading-tight">
+            Sistem Catatan Gym & Pemantauan Progressive Overload
+          </h1>
+          <p className="text-sm sm:text-base text-[#B3B7BA] leading-relaxed">
+            Kelola jadwal latihan harian, catat beban dan repetisi per set, hitung jeda istirahat dengan timer otomatis, serta pantau akumulasi volume angkatan untuk membuka level Gym Rank.
+          </p>
+        </div>
 
+        <div className="flex flex-wrap items-center gap-4 pt-2">
           {todayRoutine && (
             <Link
               href={`/logger?routineId=${todayRoutine.id}`}
-              className="inline-flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-[#F9F9F9] text-[#010101] font-black text-sm hover:bg-white transition-transform active:scale-95 shadow-lg"
+              className="solid-btn-primary px-6 py-3 text-xs uppercase tracking-wider flex items-center gap-2"
             >
               <Play className="w-4 h-4 fill-current" />
-              MULAI LATIHAN HARI INI
+              Mulai Sesi Latihan Harian
             </Link>
           )}
-        </div>
-      </div>
 
-      {/* Gym Rank Tier System Card */}
-      <div className="taste-card p-6 border-l-4 border-l-[#F59E0B] space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-[#0F0E0E] border border-[#3E3A3A] flex items-center justify-center text-[#F59E0B]">
+          <Link
+            href="/routines"
+            className="solid-btn-secondary px-6 py-3 text-xs uppercase tracking-wider flex items-center gap-2"
+          >
+            <Calendar className="w-4 h-4" />
+            Kelola Split Latihan
+          </Link>
+        </div>
+      </section>
+
+      {/* Gym Rank System Banner */}
+      <section className="solid-card p-6 sm:p-8 space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-sm bg-[#090F15] border border-[#6C6D74] flex items-center justify-center text-[#D3D1CE]">
               <Shield className="w-6 h-6" />
             </div>
             <div>
-              <span className="text-[10px] font-mono text-[#7D7D7D] uppercase tracking-widest block">PERINGKAT GYM KAMU</span>
-              <h2 className="text-xl font-extrabold text-[#F9F9F9]">{userRank.rank_name}</h2>
+              <span className="text-[10px] font-mono text-[#B3B7BA] uppercase tracking-widest block">
+                PERINGKAT GYM SAAT INI
+              </span>
+              <h2 className="text-2xl font-heading font-bold text-[#D3D1CE]">
+                {userRank.rank_name}
+              </h2>
             </div>
           </div>
 
-          <div className="text-right">
-            <span className="text-xs font-mono text-[#7D7D7D]">Total Akumulasi Volume</span>
-            <div className="text-2xl font-black text-[#F9F9F9] font-mono">{totalVolume.toLocaleString()} kg</div>
+          <div className="text-left md:text-right">
+            <span className="text-xs font-mono text-[#B3B7BA]">Total Akumulasi Volume</span>
+            <div className="text-3xl font-heading font-black text-[#D3D1CE]">
+              {totalVolume.toLocaleString()} kg
+            </div>
           </div>
         </div>
 
         {/* EXP Progress Bar */}
         <div className="space-y-1.5 pt-2">
-          <div className="flex justify-between text-[11px] font-mono text-[#7D7D7D]">
-            <span>Level Progress (Tier {userRank.tier_level}/6)</span>
-            <span>{userRank.progress_percent}% ke Rank Berikutnya</span>
+          <div className="flex justify-between text-[11px] font-mono text-[#B3B7BA]">
+            <span>Level Tier {userRank.tier_level} / 6</span>
+            <span>{userRank.progress_percent}% Progres Volume</span>
           </div>
-          <div className="w-full h-2.5 bg-[#0F0E0E] rounded-full overflow-hidden border border-[#3E3A3A]">
+          <div className="w-full h-2 bg-[#090F15] rounded-none border border-[#6C6D74] overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-amber-500 to-yellow-400 transition-all duration-1000"
+              className="h-full bg-[#D3D1CE]"
               style={{ width: `${userRank.progress_percent}%` }}
             />
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* 4 Core Stat Bento Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="taste-card p-5">
-          <div className="flex items-center justify-between text-[#7D7D7D] mb-2">
-            <span className="text-xs font-mono uppercase tracking-wider">Total Latihan</span>
-            <Dumbbell className="w-4 h-4 text-[#F9F9F9]" />
+      {/* 4 Stat Bento Cards */}
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="solid-card p-5">
+          <div className="flex items-center justify-between text-[#B3B7BA] mb-2">
+            <span className="text-xs font-mono uppercase">Total Latihan</span>
+            <Dumbbell className="w-4 h-4 text-[#D3D1CE]" />
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-[#F9F9F9] font-mono">{totalWorkouts}</div>
-          <span className="text-[11px] text-[#7D7D7D] mt-1 block">sesi terselesaikan</span>
+          <div className="text-3xl font-heading font-bold text-[#D3D1CE]">{totalWorkouts}</div>
+          <span className="text-[11px] text-[#B3B7BA] mt-1 block">sesi terselesaikan</span>
         </div>
 
-        <div className="taste-card p-5">
-          <div className="flex items-center justify-between text-[#7D7D7D] mb-2">
-            <span className="text-xs font-mono uppercase tracking-wider">Total Volume</span>
-            <ArrowUpRight className="w-4 h-4 text-[#F9F9F9]" />
+        <div className="solid-card p-5">
+          <div className="flex items-center justify-between text-[#B3B7BA] mb-2">
+            <span className="text-xs font-mono uppercase">Total Volume</span>
+            <ArrowUpRight className="w-4 h-4 text-[#D3D1CE]" />
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-[#F9F9F9] font-mono">
+          <div className="text-3xl font-heading font-bold text-[#D3D1CE]">
             {totalVolume >= 1000 ? `${(totalVolume / 1000).toFixed(1)}t` : `${totalVolume} kg`}
           </div>
-          <span className="text-[11px] text-[#7D7D7D] mt-1 block">akumulasi angkatan</span>
+          <span className="text-[11px] text-[#B3B7BA] mt-1 block">akumulasi beban</span>
         </div>
 
-        <div className="taste-card p-5">
-          <div className="flex items-center justify-between text-[#7D7D7D] mb-2">
-            <span className="text-xs font-mono uppercase tracking-wider">Streak Latihan</span>
-            <Flame className="w-4 h-4 text-amber-500" />
+        <div className="solid-card p-5">
+          <div className="flex items-center justify-between text-[#B3B7BA] mb-2">
+            <span className="text-xs font-mono uppercase">Streak Gym</span>
+            <Flame className="w-4 h-4 text-[#D3D1CE]" />
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-[#F9F9F9] font-mono">
+          <div className="text-3xl font-heading font-bold text-[#D3D1CE]">
             {logs.length > 0 ? '4 Hari' : '0 Hari'}
           </div>
-          <span className="text-[11px] text-[#7D7D7D] mt-1 block">konsistensi aktif</span>
+          <span className="text-[11px] text-[#B3B7BA] mt-1 block">konsistensi aktif</span>
         </div>
 
-        <div className="taste-card p-5">
-          <div className="flex items-center justify-between text-[#7D7D7D] mb-2">
-            <span className="text-xs font-mono uppercase tracking-wider">Rekor PR</span>
-            <Trophy className="w-4 h-4 text-amber-500" />
+        <div className="solid-card p-5">
+          <div className="flex items-center justify-between text-[#B3B7BA] mb-2">
+            <span className="text-xs font-mono uppercase">Rekor PR</span>
+            <Trophy className="w-4 h-4 text-[#D3D1CE]" />
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-[#F9F9F9] font-mono">{prCount > 0 ? prCount : 3} PR</div>
-          <span className="text-[11px] text-[#7D7D7D] mt-1 block">rekor angkatan baru</span>
+          <div className="text-3xl font-heading font-bold text-[#D3D1CE]">{prCount > 0 ? prCount : 3} PR</div>
+          <span className="text-[11px] text-[#B3B7BA] mt-1 block">rekor angkatan terberat</span>
         </div>
-      </div>
+      </section>
 
-      {/* Main Grid: Weekly Schedule Matrix & Body Metrics */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left 2 Cols: Weekly Schedule Matrix */}
+      {/* Main Grid: Split Schedule & Body Metrics */}
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Left 2 Cols: Schedule Matrix */}
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-[#F9F9F9] flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-[#F9F9F9]" />
-              Jadwal Mingguan Latihan (Split Schedule)
+            <h2 className="text-lg font-heading font-bold text-[#D3D1CE] flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-[#D3D1CE]" />
+              Jadwal Split Latihan Mingguan
             </h2>
-            <Link href="/routines" className="text-xs text-[#7D7D7D] hover:text-[#F9F9F9] flex items-center gap-1 font-mono">
+            <Link href="/routines" className="text-xs text-[#B3B7BA] hover:text-[#D3D1CE] flex items-center gap-1 font-mono">
               Kelola Split <ArrowUpRight className="w-3 h-3" />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {routines.map((routine) => (
-              <div key={routine.id} className="taste-card p-5 flex flex-col justify-between space-y-4">
+              <div key={routine.id} className="solid-card p-5 flex flex-col justify-between space-y-4">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#0F0E0E] border border-[#3E3A3A] text-[#7D7D7D] text-[10px] font-mono uppercase">
+                    <span className="px-2 py-0.5 rounded-sm bg-[#090F15] border border-[#6C6D74] text-[#B3B7BA] text-[10px] font-mono uppercase">
                       {routine.day_of_week}
                     </span>
-                    <span className="text-[10px] text-[#7D7D7D] font-mono">
+                    <span className="text-[10px] text-[#D3D1CE] font-mono uppercase border border-[#6C6D74] px-2 py-0.5 rounded-sm bg-[#090F15]">
                       {routine.time_of_day || 'Pagi'}
                     </span>
                   </div>
 
-                  <h3 className="font-bold text-base text-[#F9F9F9]">{routine.title}</h3>
-                  <p className="text-xs text-[#7D7D7D] line-clamp-2">{routine.description}</p>
+                  <h3 className="font-heading font-bold text-[#D3D1CE] text-base">{routine.title}</h3>
+                  <p className="text-xs text-[#B3B7BA] line-clamp-2 leading-relaxed">{routine.description}</p>
                 </div>
 
-                <div className="pt-3 border-t border-[#3E3A3A] flex items-center justify-between">
-                  <span className="text-xs font-mono text-[#7D7D7D]">
+                <div className="pt-3 border-t border-[#6C6D74] flex items-center justify-between">
+                  <span className="text-xs font-mono text-[#B3B7BA]">
                     {routine.exercises.length} gerakan
                   </span>
                   <Link
                     href={`/logger?routineId=${routine.id}`}
-                    className="px-3 py-1.5 rounded-lg bg-[#F9F9F9] text-[#010101] text-xs font-bold hover:bg-white transition-transform active:scale-95 flex items-center gap-1"
+                    className="solid-btn-primary px-3 py-1.5 text-xs flex items-center gap-1"
                   >
                     Start <Play className="w-3 h-3 fill-current" />
                   </Link>
@@ -216,56 +229,56 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Right 1 Col: Body Weight & Progress Photo Log */}
+        {/* Right 1 Col: Body Metrics */}
         <div className="space-y-4">
-          <h2 className="text-lg font-bold text-[#F9F9F9] flex items-center gap-2">
-            <Scale className="w-4 h-4 text-[#F9F9F9]" />
+          <h2 className="text-lg font-heading font-bold text-[#D3D1CE] flex items-center gap-2">
+            <Scale className="w-4 h-4 text-[#D3D1CE]" />
             Catatan Fisik (Body Metrics)
           </h2>
 
-          <div className="taste-card p-5 space-y-4">
+          <div className="solid-card p-5 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs text-[#7D7D7D]">Berat Terakhir</span>
-              <span className="text-2xl font-black text-[#F9F9F9] font-mono">{latestWeight} kg</span>
+              <span className="text-xs text-[#B3B7BA]">Berat Terakhir</span>
+              <span className="text-2xl font-heading font-bold text-[#D3D1CE]">{latestWeight} kg</span>
             </div>
 
             <form onSubmit={handleSaveBodyWeight} className="space-y-3">
               <div>
-                <label className="text-[10px] text-[#7D7D7D] uppercase font-mono block mb-1">Input Berat (kg)</label>
+                <label className="text-[10px] text-[#B3B7BA] uppercase font-mono block mb-1">Input Berat (kg)</label>
                 <input
                   type="number"
                   step="0.1"
                   placeholder="misal: 71.5"
                   value={weightInput}
                   onChange={(e) => setWeightInput(e.target.value)}
-                  className="taste-input w-full px-3 py-2 text-xs font-mono"
+                  className="solid-input w-full px-3 py-2 text-xs"
                 />
               </div>
 
-              {/* Photo Progress Upload */}
+              {/* Photo Upload */}
               <div>
-                <label className="text-[10px] text-[#7D7D7D] uppercase font-mono block mb-1">Foto Progres Fisik (Opsional)</label>
-                <label className="cursor-pointer border border-dashed border-[#3E3A3A] rounded-xl p-3 bg-[#0F0E0E] flex items-center justify-center gap-2 text-xs text-[#7D7D7D] hover:text-[#F9F9F9]">
+                <label className="text-[10px] text-[#B3B7BA] uppercase font-mono block mb-1">Foto Progres Fisik</label>
+                <label className="cursor-pointer border border-dashed border-[#6C6D74] rounded-sm p-3 bg-[#090F15] flex items-center justify-center gap-2 text-xs text-[#B3B7BA] hover:text-[#D3D1CE] transition-colors">
                   <Camera className="w-4 h-4" />
-                  <span>{photoPreview ? 'Foto Terlampir' : 'Upload Foto Body Spec'}</span>
+                  <span>{photoPreview ? 'Foto Terlampir' : 'Upload Foto Progres'}</span>
                   <input type="file" accept="image/*" onChange={handlePhotoUpload} className="hidden" />
                 </label>
                 {photoPreview && (
-                  <img src={photoPreview} alt="Preview" className="mt-2 h-20 rounded-lg border border-[#3E3A3A] object-cover" />
+                  <img src={photoPreview} alt="Preview" className="mt-2 h-20 rounded-sm border border-[#6C6D74] object-cover" />
                 )}
               </div>
 
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-lg bg-[#F9F9F9] text-[#010101] font-bold text-xs hover:bg-white transition-colors flex items-center justify-center gap-1"
+                className="w-full solid-btn-primary py-2.5 text-xs flex items-center justify-center gap-1"
               >
-                {weightLogged ? <Check className="w-4 h-4 text-emerald-600" /> : <Plus className="w-4 h-4" />}
+                {weightLogged ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                 Catat Log Fisik
               </button>
             </form>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

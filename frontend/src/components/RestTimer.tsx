@@ -38,7 +38,6 @@ export default function RestTimer({ initialSeconds = 90, onComplete }: RestTimer
       setIsActive(false);
       if (onComplete) onComplete();
 
-      // Trigger audio chime & native push notification
       try {
         const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
         audio.play().catch(() => {});
@@ -79,19 +78,21 @@ export default function RestTimer({ initialSeconds = 90, onComplete }: RestTimer
   const progressPercent = totalDuration > 0 ? ((totalDuration - secondsLeft) / totalDuration) * 100 : 0;
 
   return (
-    <div className="taste-card p-5 space-y-4">
+    <div className="slate-card p-5 space-y-4 shadow-xl">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Timer className="w-4 h-4 text-[#F9F9F9]" />
-          <span className="font-bold text-xs uppercase tracking-wider text-[#F9F9F9]">Rest Timer Jeda Set</span>
+          <Timer className="w-4 h-4 text-blue-400" />
+          <span className="font-heading font-bold text-xs uppercase tracking-wider text-[#F8FAFC]">
+            Rest Timer Jeda Set
+          </span>
         </div>
 
         {notifPermission !== 'granted' && (
           <button
             onClick={requestNotificationPermission}
-            className="text-[10px] text-[#7D7D7D] hover:text-[#F9F9F9] flex items-center gap-1 border border-[#3E3A3A] px-2 py-0.5 rounded-full"
+            className="text-[10px] font-mono text-[#94A3B8] hover:text-[#F8FAFC] flex items-center gap-1 border border-[#334155] px-2 py-0.5 rounded-full bg-[#0F172A]"
           >
-            <Bell className="w-3 h-3" /> Izinkan Notif
+            <Bell className="w-3 h-3 text-amber-400" /> Izinkan Notif
           </button>
         )}
       </div>
@@ -102,10 +103,10 @@ export default function RestTimer({ initialSeconds = 90, onComplete }: RestTimer
           <button
             key={sec}
             onClick={() => startTimer(sec)}
-            className={`py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
+            className={`py-2 rounded-xl text-xs font-mono font-bold transition-all ${
               totalDuration === sec && isActive
-                ? 'bg-[#F9F9F9] text-[#010101]'
-                : 'bg-[#0F0E0E] text-[#7D7D7D] border border-[#3E3A3A] hover:text-[#F9F9F9]'
+                ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
+                : 'bg-[#0F172A] text-[#94A3B8] border border-[#334155] hover:text-[#F8FAFC] hover:border-blue-500/50'
             }`}
           >
             {sec}s
@@ -114,31 +115,31 @@ export default function RestTimer({ initialSeconds = 90, onComplete }: RestTimer
       </div>
 
       {/* Timer Bar & Controls */}
-      <div className="relative bg-[#0F0E0E] rounded-xl p-4 border border-[#3E3A3A] flex items-center justify-between overflow-hidden">
+      <div className="relative bg-[#0F172A] rounded-xl p-4 border border-[#334155] flex items-center justify-between overflow-hidden">
         <div
-          className="absolute bottom-0 left-0 h-1 bg-[#F9F9F9] transition-all duration-1000"
+          className="absolute bottom-0 left-0 h-1 bg-blue-500 transition-all duration-1000 shadow-sm shadow-blue-500"
           style={{ width: `${progressPercent}%` }}
         />
 
         <div className="flex items-baseline gap-2">
-          <span className="text-3xl font-black text-[#F9F9F9] font-mono tracking-tight">
+          <span className="text-3xl font-black text-[#F8FAFC] font-heading tracking-tight">
             {formatTime(secondsLeft)}
           </span>
-          <span className="text-[10px] text-[#7D7D7D] uppercase tracking-wider font-semibold">
-            {isActive ? 'Istirahat berlangsung...' : 'Timer Siap'}
+          <span className="text-[10px] text-[#94A3B8] uppercase tracking-wider font-mono">
+            {isActive ? 'Istirahat...' : 'Timer Siap'}
           </span>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={toggleTimer}
-            className="p-2.5 rounded-lg bg-[#F9F9F9] text-[#010101] hover:bg-white transition-transform active:scale-95"
+            className="p-2.5 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition-transform active:scale-95 shadow-md shadow-blue-500/25"
           >
             {isActive ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current ml-0.5" />}
           </button>
           <button
             onClick={resetTimer}
-            className="p-2.5 rounded-lg bg-[#1A1919] border border-[#3E3A3A] text-[#7D7D7D] hover:text-[#F9F9F9]"
+            className="p-2.5 rounded-xl bg-[#1E293B] border border-[#334155] text-[#94A3B8] hover:text-[#F8FAFC]"
           >
             <RotateCcw className="w-4 h-4" />
           </button>
