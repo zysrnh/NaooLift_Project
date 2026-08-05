@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { PlayCircle, CheckCircle2, Dumbbell, Trophy, ArrowRight, Award, Plus, Trash2 } from 'lucide-react';
+import { PlayCircle, CheckCircle2, Dumbbell, Trophy, Award, Plus, Trash2, MessageSquare } from 'lucide-react';
 import RestTimer from '@/components/RestTimer';
 import { getRoutines, saveWorkoutLog, DEFAULT_EXERCISES, Routine, WorkoutLog, WorkoutSet } from '@/lib/api';
 import confetti from 'canvas-confetti';
@@ -17,6 +17,8 @@ function LoggerContent() {
 
   // Active workout session state
   const [workoutTitle, setWorkoutTitle] = useState('');
+  const [sessionNotes, setSessionNotes] = useState('');
+  const [weightUnit, setWeightUnit] = useState<'kg' | 'lbs'>('kg');
   const [activeSets, setActiveSets] = useState<Record<string, WorkoutSet[]>>({});
   const [completedSets, setCompletedSets] = useState<Record<string, boolean>>({});
   const [prTriggered, setPrTriggered] = useState<string | null>(null);
@@ -39,7 +41,6 @@ function LoggerContent() {
     setSelectedRoutine(routine);
     setWorkoutTitle(routine.title);
 
-    // Initialize sets per exercise based on routine targets
     const initialSetsMap: Record<string, WorkoutSet[]> = {};
     routine.exercises.forEach(item => {
       const sets: WorkoutSet[] = [];
@@ -49,6 +50,7 @@ function LoggerContent() {
           set_number: i,
           weight_kg: item.target_weight_kg,
           reps: 10,
+          notes: '',
         });
       }
       initialSetsMap[item.exercise_id] = sets;
@@ -69,12 +71,13 @@ function LoggerContent() {
   const addSetToExercise = (exerciseId: string) => {
     setActiveSets(prev => {
       const exSets = prev[exerciseId] || [];
-      const lastSet = exSets.length > 0 ? exSets[exSets.length - 1] : { weight_kg: 50, reps: 10 };
+      const lastSet = exSets.length > 0 ? exSets[exSets.length - 1] : { weight_kg: 50, reps: 10, notes: '' };
       const newSet: WorkoutSet = {
         exercise_id: exerciseId,
         set_number: exSets.length + 1,
         weight_kg: lastSet.weight_kg,
         reps: lastSet.reps,
+        notes: '',
       };
       return { ...prev, [exerciseId]: [...exSets, newSet] };
     });
@@ -85,12 +88,11 @@ function LoggerContent() {
     const isNowDone = !completedSets[key];
     setCompletedSets(prev => ({ ...prev, [key]: isNowDone }));
 
-    // Check for PR trigger (e.g. if weight >= 80kg)
     if (isNowDone) {
       const setObj = activeSets[exerciseId]?.[setIdx];
       if (setObj && setObj.weight_kg >= 80) {
         setObj.is_pr = true;
-        setPrTriggered(`${DEFAULT_EXERCISES.find(e => e.id === exerciseId)?.name || 'Gerakan'} (${setObj.weight_kg}kg)`);
+        setPrTriggered(`${DEFAULT_EXERCISES.find(e => e.id === exerciseId)?.name || 'Gerakan'} (${setObj.weight_kg}${weightUnit})`);
         confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
         setTimeout(() => setPrTriggered(null), 3500);
       }
@@ -127,8 +129,10 @@ function LoggerContent() {
       routine_id: selectedRoutine.id,
       title: workoutTitle,
       date: new Date().toISOString().split('T')[0],
+      time_logged: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       duration_minutes: durationMins,
       total_volume_kg: calculateTotalVolume(),
+      notes: sessionNotes,
       feeling_rating: feelingRating,
       sets: allSets,
     };
@@ -142,31 +146,47 @@ function LoggerContent() {
     <div className="space-y-8 animate-fadeIn">
       {/* PR Celebration Alert */}
       {prTriggered && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 glass-card bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 px-6 py-3 rounded-2xl font-black text-sm shadow-2xl flex items-center gap-2 animate-bounce">
-          <Trophy className="w-5 h-5 fill-slate-950" />
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#F9F9F9] text-[#010101] border border-[#3E3A3A] px-6 py-3 rounded-xl font-black text-xs shadow-2xl flex items-center gap-2 animate-bounce">
+          <Trophy className="w-4 h-4 fill-current text-amber-500" />
           REKOR PR BARU TERPECAHKAN: {prTriggered}!
         </div>
       )}
 
       {/* Header & Routine Selector */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#3E3A3A] pb-5">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-2">
-            <PlayCircle className="w-3.5 h-3.5" /> Live Gym Session
+          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#0F0E0E] border border-[#3E3A3A] text-[#7D7D7D] text-[10px] font-mono uppercase tracking-wider mb-2">
+            <PlayCircle className="w-3.5 h-3.5" /> Active Live Logger
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-3xl font-extrabold text-[#F9F9F9] tracking-tight">
             Catat Sesi Gym Live 🏋️‍♂️
           </h1>
         </div>
 
         <div className="flex items-center gap-3">
+          {/* Weight Unit Switcher */}
+          <div className="flex bg-[#0F0E0E] border border-[#3E3A3A] p-0.5 rounded-lg text-xs font-mono">
+            <button
+              onClick={() => setWeightUnit('kg')}
+              className={`px-3 py-1 rounded-md transition-colors ${weightUnit === 'kg' ? 'bg-[#F9F9F9] text-[#010101] font-bold' : 'text-[#7D7D7D]'}`}
+            >
+              KG
+            </button>
+            <button
+              onClick={() => setWeightUnit('lbs')}
+              className={`px-3 py-1 rounded-md transition-colors ${weightUnit === 'lbs' ? 'bg-[#F9F9F9] text-[#010101] font-bold' : 'text-[#7D7D7D]'}`}
+            >
+              LBS
+            </button>
+          </div>
+
           <select
             value={selectedRoutine?.id || ''}
             onChange={(e) => {
               const r = routines.find(item => item.id === e.target.value);
               if (r) selectRoutine(r);
             }}
-            className="bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white font-medium focus:outline-none focus:border-cyan-500"
+            className="taste-input px-3 py-2 text-xs font-mono"
           >
             {routines.map(r => (
               <option key={r.id} value={r.id}>{r.title}</option>
@@ -175,7 +195,7 @@ function LoggerContent() {
 
           <button
             onClick={handleFinishWorkout}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-extrabold text-sm shadow-lg shadow-emerald-500/20 hover:scale-105 transition-transform"
+            className="px-4 py-2 rounded-lg bg-[#F9F9F9] text-[#010101] font-bold text-xs hover:bg-white transition-transform active:scale-95 flex items-center gap-1.5 shadow-md"
           >
             <CheckCircle2 className="w-4 h-4" /> Selesai Latihan
           </button>
@@ -191,30 +211,28 @@ function LoggerContent() {
             const sets = activeSets[item.exercise_id] || [];
 
             return (
-              <div
-                key={item.exercise_id}
-                className="glass-card rounded-3xl p-6 border border-slate-800 bg-slate-900/40 space-y-4 shadow-xl"
-              >
-                <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+              <div key={item.exercise_id} className="taste-card p-6 space-y-4">
+                <div className="flex items-center justify-between border-b border-[#3E3A3A] pb-3">
                   <div>
-                    <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wider block">
-                      {ex?.muscle_group} • {ex?.equipment}
+                    <span className="text-[10px] font-mono text-[#7D7D7D] uppercase tracking-wider block">
+                      {ex?.muscle_group} • {ex?.category_type} • {ex?.equipment}
                     </span>
-                    <h3 className="text-xl font-bold text-white">{ex?.name || item.exercise_id}</h3>
+                    <h3 className="text-lg font-bold text-[#F9F9F9]">{ex?.name || item.exercise_id}</h3>
                   </div>
 
-                  <span className="text-xs text-slate-400 font-mono">
-                    Target: {item.target_sets} sets × {item.target_reps} ({item.target_weight_kg}kg)
+                  <span className="text-xs text-[#7D7D7D] font-mono">
+                    Target: {item.target_sets}s × {item.target_reps} ({item.target_weight_kg}{weightUnit})
                   </span>
                 </div>
 
                 {/* Sets Table */}
                 <div className="space-y-2">
-                  <div className="grid grid-cols-12 gap-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400 px-3">
+                  <div className="grid grid-cols-12 gap-2 text-[10px] font-mono uppercase text-[#7D7D7D] px-2">
                     <span className="col-span-2">SET</span>
-                    <span className="col-span-4">BEBAN (KG)</span>
-                    <span className="col-span-4">REPS</span>
-                    <span className="col-span-2 text-right">LOG</span>
+                    <span className="col-span-3">BEBAN ({weightUnit.toUpperCase()})</span>
+                    <span className="col-span-3">REPS</span>
+                    <span className="col-span-3">CATATAN SET</span>
+                    <span className="col-span-1 text-right">LOG</span>
                   </div>
 
                   {sets.map((setObj, setIdx) => {
@@ -222,44 +240,54 @@ function LoggerContent() {
                     return (
                       <div
                         key={setIdx}
-                        className={`grid grid-cols-12 gap-2 items-center p-3 rounded-2xl border transition-all ${
+                        className={`grid grid-cols-12 gap-2 items-center p-2.5 rounded-xl border transition-all ${
                           isDone
-                            ? 'bg-emerald-950/20 border-emerald-500/30'
-                            : 'bg-slate-950 border-slate-800/80'
+                            ? 'bg-[#0F0E0E] border-emerald-500/50'
+                            : 'bg-[#0F0E0E] border-[#3E3A3A]'
                         }`}
                       >
-                        <span className="col-span-2 text-xs font-mono font-bold text-slate-300">
+                        <span className="col-span-2 text-xs font-mono font-bold text-[#F9F9F9]">
                           #{setIdx + 1}
                         </span>
 
-                        <div className="col-span-4">
+                        <div className="col-span-3">
                           <input
                             type="number"
                             value={setObj.weight_kg}
                             onChange={(e) => updateSetParam(item.exercise_id, setIdx, 'weight_kg', Number(e.target.value))}
-                            className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white font-mono font-bold focus:outline-none focus:border-cyan-500"
+                            className="taste-input w-full px-2 py-1 text-xs font-mono font-bold"
                           />
                         </div>
 
-                        <div className="col-span-4">
+                        <div className="col-span-3">
                           <input
                             type="number"
                             value={setObj.reps}
                             onChange={(e) => updateSetParam(item.exercise_id, setIdx, 'reps', Number(e.target.value))}
-                            className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white font-mono font-bold focus:outline-none focus:border-cyan-500"
+                            className="taste-input w-full px-2 py-1 text-xs font-mono font-bold"
                           />
                         </div>
 
-                        <div className="col-span-2 flex justify-end">
+                        <div className="col-span-3">
+                          <input
+                            type="text"
+                            placeholder="misal: RPE 8"
+                            value={setObj.notes || ''}
+                            onChange={(e) => updateSetParam(item.exercise_id, setIdx, 'notes', e.target.value)}
+                            className="taste-input w-full px-2 py-1 text-[11px]"
+                          />
+                        </div>
+
+                        <div className="col-span-1 flex justify-end">
                           <button
                             onClick={() => toggleSetComplete(item.exercise_id, setIdx)}
-                            className={`p-2 rounded-xl transition-all ${
+                            className={`p-1.5 rounded-lg transition-all ${
                               isDone
-                                ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/30'
-                                : 'bg-slate-800 text-slate-400 hover:text-white'
+                                ? 'bg-emerald-500 text-slate-950 font-bold'
+                                : 'bg-[#1A1919] border border-[#3E3A3A] text-[#7D7D7D] hover:text-[#F9F9F9]'
                             }`}
                           >
-                            <CheckCircle2 className="w-5 h-5" />
+                            <CheckCircle2 className="w-4 h-4" />
                           </button>
                         </div>
                       </div>
@@ -269,50 +297,62 @@ function LoggerContent() {
 
                 <button
                   onClick={() => addSetToExercise(item.exercise_id)}
-                  className="w-full py-2 rounded-xl bg-slate-950 border border-dashed border-slate-800 hover:border-cyan-500/40 text-slate-400 hover:text-cyan-300 text-xs font-semibold flex items-center justify-center gap-1 transition-colors"
+                  className="w-full py-2 rounded-xl bg-[#0F0E0E] border border-dashed border-[#3E3A3A] text-[#7D7D7D] hover:text-[#F9F9F9] text-xs font-semibold flex items-center justify-center gap-1"
                 >
-                  <Plus className="w-3.5 h-3.5" /> Tambah Set Baru
+                  <Plus className="w-3.5 h-3.5" /> Tambah Set
                 </button>
               </div>
             );
           })}
         </div>
 
-        {/* Right 1 Col: Rest Timer & Session Summary */}
+        {/* Right 1 Col: Rest Timer & Session Notes */}
         <div className="space-y-6">
           <RestTimer initialSeconds={90} />
 
-          {/* Session Real-time Summary Card */}
-          <div className="glass-card rounded-2xl p-5 border border-slate-800 bg-slate-900/40 space-y-4">
-            <h3 className="font-bold text-base text-white flex items-center gap-2">
-              <Award className="w-4 h-4 text-cyan-400" /> Ringkasan Sesi Live
+          {/* Session Summary & Notes */}
+          <div className="taste-card p-5 space-y-4">
+            <h3 className="font-bold text-sm text-[#F9F9F9] flex items-center gap-2">
+              <Award className="w-4 h-4 text-[#F9F9F9]" /> Catatan Sesi Latihan
             </h3>
 
-            <div className="space-y-2 border-t border-b border-slate-800/80 py-3 text-xs">
+            <div>
+              <label className="text-[10px] font-mono text-[#7D7D7D] uppercase block mb-1">
+                Catatan Sesi (Notes)
+              </label>
+              <textarea
+                placeholder="misal: beban ditambah minggu depan, form terasa kurang oke di bench press..."
+                value={sessionNotes}
+                onChange={(e) => setSessionNotes(e.target.value)}
+                className="taste-input w-full px-3 py-2 text-xs min-h-[90px]"
+              />
+            </div>
+
+            <div className="space-y-2 border-t border-b border-[#3E3A3A] py-3 text-xs font-mono">
               <div className="flex justify-between">
-                <span className="text-slate-400">Total Volume Terangkat:</span>
-                <span className="font-mono font-black text-cyan-300 text-sm">{calculateTotalVolume()} kg</span>
+                <span className="text-[#7D7D7D]">Total Volume Live:</span>
+                <span className="font-black text-[#F9F9F9]">{calculateTotalVolume()} {weightUnit}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Total Set Selesai:</span>
-                <span className="font-mono font-bold text-white">
+                <span className="text-[#7D7D7D]">Set Selesai:</span>
+                <span className="font-bold text-[#F9F9F9]">
                   {Object.values(completedSets).filter(Boolean).length} Sets
                 </span>
               </div>
             </div>
 
             <div>
-              <span className="text-xs text-slate-400 block mb-1">Kondisi / Mood Latihan Hari Ini:</span>
-              <div className="flex gap-2">
+              <span className="text-[10px] font-mono text-[#7D7D7D] uppercase block mb-1">Perasaan / Mood Latihan</span>
+              <div className="flex gap-1.5">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button
                     key={star}
                     type="button"
                     onClick={() => setFeelingRating(star)}
-                    className={`flex-1 py-1.5 rounded-xl font-bold text-xs transition-all ${
+                    className={`flex-1 py-1.5 rounded-lg text-xs font-mono font-bold transition-colors ${
                       feelingRating === star
-                        ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
-                        : 'bg-slate-950 text-slate-400 border border-slate-800'
+                        ? 'bg-[#F9F9F9] text-[#010101]'
+                        : 'bg-[#0F0E0E] border border-[#3E3A3A] text-[#7D7D7D]'
                     }`}
                   >
                     {star}★
@@ -323,7 +363,7 @@ function LoggerContent() {
 
             <button
               onClick={handleFinishWorkout}
-              className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 font-extrabold text-sm shadow-xl shadow-emerald-500/20 hover:scale-[1.02] transition-transform"
+              className="w-full py-3 rounded-xl bg-[#F9F9F9] text-[#010101] font-black text-xs hover:bg-white transition-transform active:scale-95 shadow-lg"
             >
               SIMPAN & SELESAIKAN LATIHAN
             </button>
@@ -336,7 +376,7 @@ function LoggerContent() {
 
 export default function LoggerPage() {
   return (
-    <Suspense fallback={<div className="text-center py-20 text-slate-400">Memuat Logger Gym...</div>}>
+    <Suspense fallback={<div className="text-center py-20 text-[#7D7D7D] font-mono">Memuat Active Logger...</div>}>
       <LoggerContent />
     </Suspense>
   );

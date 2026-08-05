@@ -1,17 +1,19 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Trophy, Calendar, Dumbbell, Award, Flame, Clock, TrendingUp } from 'lucide-react';
-import { getWorkoutLogs, DEFAULT_EXERCISES, WorkoutLog, WorkoutSet } from '@/lib/api';
+import { Trophy, Calendar, Dumbbell, Award, Clock, TrendingUp, Camera } from 'lucide-react';
+import { getWorkoutLogs, getBodyLogs, DEFAULT_EXERCISES, WorkoutLog, BodyLog } from '@/lib/api';
 
 export default function HistoryPage() {
   const [logs, setLogs] = useState<WorkoutLog[]>([]);
+  const [bodyLogs, setBodyLogs] = useState<BodyLog[]>([]);
 
   useEffect(() => {
     setLogs(getWorkoutLogs());
+    setBodyLogs(getBodyLogs());
   }, []);
 
-  // Compute PRs per exercise across all historical logs
+  // Compute PRs per exercise
   const prMap: Record<string, { maxWeight: number; maxReps: number; date: string }> = {};
 
   logs.forEach(log => {
@@ -30,20 +32,20 @@ export default function HistoryPage() {
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* Header */}
-      <div className="border-b border-slate-800/80 pb-5">
-        <h1 className="text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-          <Trophy className="w-8 h-8 text-amber-400" />
-          Trophy Room & Riwayat Gym
+      <div className="border-b border-[#3E3A3A] pb-5">
+        <h1 className="text-3xl font-extrabold text-[#F9F9F9] tracking-tight flex items-center gap-3">
+          <Trophy className="w-7 h-7 text-amber-500" />
+          Analytics, PR Trophy Room & Riwayat
         </h1>
-        <p className="text-slate-400 text-sm mt-1">
-          Lacak rekor angkatan pribadi (PR) terberat dan riwayat sesi latihan dari waktu ke waktu.
+        <p className="text-[#7D7D7D] text-xs sm:text-sm mt-1">
+          Visualisasi peningkatan volume angkatan, rekor angkatan terberat (PR), dan riwayat foto progres fisik.
         </p>
       </div>
 
       {/* Trophy Room: Top PR Cards */}
       <div className="space-y-4">
-        <h2 className="text-xl font-bold text-white flex items-center gap-2">
-          <Award className="w-5 h-5 text-cyan-400" />
+        <h2 className="text-lg font-bold text-[#F9F9F9] flex items-center gap-2">
+          <Award className="w-4 h-4 text-amber-500" />
           Rekor Angkatan Terberat (Personal Records)
         </h2>
 
@@ -53,86 +55,102 @@ export default function HistoryPage() {
               const pr = prMap[exId];
               const ex = DEFAULT_EXERCISES.find(e => e.id === exId);
               return (
-                <div
-                  key={exId}
-                  className="glass-card glass-card-hover rounded-2xl p-5 border border-amber-500/20 bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/20 relative overflow-hidden"
-                >
-                  <div className="absolute top-3 right-3 p-2 bg-amber-500/10 rounded-xl text-amber-400 border border-amber-500/20">
-                    <Trophy className="w-4 h-4 fill-amber-400" />
+                <div key={exId} className="taste-card p-5 border-l-4 border-l-amber-500 relative overflow-hidden">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-mono text-amber-500 uppercase tracking-wider">
+                      {ex?.muscle_group || 'PR'}
+                    </span>
+                    <Trophy className="w-4 h-4 text-amber-500 fill-amber-500" />
                   </div>
 
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block mb-1">
-                    {ex?.muscle_group || 'PR'}
-                  </span>
-                  <h3 className="font-bold text-base text-white pr-8">{ex?.name || exId}</h3>
+                  <h3 className="font-bold text-sm text-[#F9F9F9]">{ex?.name || exId}</h3>
 
-                  <div className="mt-4 flex items-baseline gap-2">
-                    <span className="text-3xl font-black text-white font-mono">{pr.maxWeight} kg</span>
-                    <span className="text-xs text-slate-400">× {pr.maxReps} reps</span>
+                  <div className="mt-3 flex items-baseline gap-2">
+                    <span className="text-3xl font-black text-[#F9F9F9] font-mono">{pr.maxWeight} kg</span>
+                    <span className="text-xs text-[#7D7D7D]">× {pr.maxReps} reps</span>
                   </div>
 
-                  <span className="text-[11px] text-slate-400 mt-2 block font-mono">
+                  <span className="text-[10px] text-[#7D7D7D] font-mono mt-2 block">
                     Dipecahkan pada {pr.date}
                   </span>
                 </div>
               );
             })
           ) : (
-            // Default sample PR cards if no logs yet
+            // Default sample PR cards
             [
               { name: 'Barbell Bench Press', weight: 85, reps: 5, group: 'Chest' },
               { name: 'Barbell Back Squat', weight: 105, reps: 6, group: 'Legs' },
               { name: 'Conventional Deadlift', weight: 130, reps: 3, group: 'Back' },
             ].map((sample, idx) => (
-              <div
-                key={idx}
-                className="glass-card glass-card-hover rounded-2xl p-5 border border-amber-500/20 bg-slate-900/40 relative overflow-hidden"
-              >
-                <div className="absolute top-3 right-3 p-2 bg-amber-500/10 rounded-xl text-amber-400 border border-amber-500/20">
-                  <Trophy className="w-4 h-4 fill-amber-400" />
+              <div key={idx} className="taste-card p-5 border-l-4 border-l-amber-500 relative overflow-hidden">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-mono text-amber-500 uppercase tracking-wider">{sample.group}</span>
+                  <Trophy className="w-4 h-4 text-amber-500 fill-amber-500" />
                 </div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block mb-1">
-                  {sample.group}
-                </span>
-                <h3 className="font-bold text-base text-white pr-8">{sample.name}</h3>
-                <div className="mt-4 flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white font-mono">{sample.weight} kg</span>
-                  <span className="text-xs text-slate-400">× {sample.reps} reps</span>
+                <h3 className="font-bold text-sm text-[#F9F9F9]">{sample.name}</h3>
+                <div className="mt-3 flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-[#F9F9F9] font-mono">{sample.weight} kg</span>
+                  <span className="text-xs text-[#7D7D7D]">× {sample.reps} reps</span>
                 </div>
-                <span className="text-[11px] text-slate-400 mt-2 block font-mono">Sampel PR</span>
+                <span className="text-[10px] text-[#7D7D7D] font-mono mt-2 block">Sampel PR</span>
               </div>
             ))
           )}
         </div>
       </div>
 
+      {/* Progress Photos & Body Metrics Section */}
+      <div className="space-y-4 pt-4">
+        <h2 className="text-lg font-bold text-[#F9F9F9] flex items-center gap-2">
+          <Camera className="w-4 h-4 text-[#F9F9F9]" />
+          Galeri Foto Progres Fisik & Catatan Berat
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {bodyLogs.filter(b => b.photo_url).map(b => (
+            <div key={b.id} className="taste-card p-3 space-y-2">
+              <img src={b.photo_url} alt="Body Progress" className="w-full h-48 rounded-lg object-cover border border-[#3E3A3A]" />
+              <div className="flex items-center justify-between text-xs font-mono">
+                <span className="text-[#7D7D7D]">{b.date}</span>
+                <span className="font-bold text-[#F9F9F9]">{b.weight_kg} kg</span>
+              </div>
+            </div>
+          ))}
+
+          {bodyLogs.filter(b => b.photo_url).length === 0 && (
+            <div className="col-span-full taste-card p-8 text-center text-[#7D7D7D] font-mono text-xs">
+              Belum ada foto progres fisik terlampir. Upload foto pertama kamu di menu Dashboard!
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Chronological Workout History Logs */}
       <div className="space-y-4 pt-4">
-        <h2 className="text-xl font-bold text-white flex items-center gap-2">
-          <Calendar className="w-5 h-5 text-violet-400" />
-          Riwayat Latihan Gym
+        <h2 className="text-lg font-bold text-[#F9F9F9] flex items-center gap-2">
+          <Calendar className="w-4 h-4 text-[#F9F9F9]" />
+          Riwayat Latihan Gym Kronologis
         </h2>
 
         <div className="space-y-4">
           {logs.map((log) => (
-            <div
-              key={log.id}
-              className="glass-card rounded-2xl p-6 border border-slate-800 bg-slate-900/40 space-y-4"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+            <div key={log.id} className="taste-card p-6 space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#3E3A3A] pb-3">
                 <div>
-                  <span className="text-xs text-slate-400 font-mono block">{log.date}</span>
-                  <h3 className="text-lg font-bold text-white">{log.title}</h3>
+                  <span className="text-xs text-[#7D7D7D] font-mono block">{log.date} {log.time_logged ? `• ${log.time_logged}` : ''}</span>
+                  <h3 className="text-base font-bold text-[#F9F9F9]">{log.title}</h3>
+                  {log.notes && <p className="text-xs text-[#7D7D7D] italic mt-1">"{log.notes}"</p>}
                 </div>
 
                 <div className="flex items-center gap-4 text-xs font-mono">
-                  <span className="flex items-center gap-1 text-slate-300">
-                    <Clock className="w-3.5 h-3.5 text-cyan-400" /> {log.duration_minutes} menit
+                  <span className="flex items-center gap-1 text-[#7D7D7D]">
+                    <Clock className="w-3.5 h-3.5" /> {log.duration_minutes}m
                   </span>
-                  <span className="flex items-center gap-1 text-cyan-300 font-bold">
-                    <TrendingUp className="w-3.5 h-3.5" /> {log.total_volume_kg} kg
+                  <span className="flex items-center gap-1 text-[#F9F9F9] font-bold">
+                    <TrendingUp className="w-3.5 h-3.5 text-amber-500" /> {log.total_volume_kg} kg
                   </span>
-                  <span className="px-2 py-0.5 rounded-full bg-slate-800 text-amber-300 font-bold">
+                  <span className="px-2 py-0.5 rounded-md bg-[#0F0E0E] text-amber-500 border border-[#3E3A3A] font-bold">
                     {log.feeling_rating}★
                   </span>
                 </div>
@@ -140,21 +158,21 @@ export default function HistoryPage() {
 
               {/* Set details breakdown */}
               <div className="space-y-2">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block">
-                  Ringkasan Angkatan ({log.sets.length} Set Selesai)
+                <span className="text-[10px] font-mono uppercase text-[#7D7D7D] block">
+                  Ringkasan Angkatan ({log.sets.length} Set Completed)
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                   {log.sets.map((setObj, sIdx) => {
                     const ex = DEFAULT_EXERCISES.find(e => e.id === setObj.exercise_id);
                     return (
-                      <div
-                        key={sIdx}
-                        className="flex items-center justify-between text-xs py-2 px-3 rounded-xl bg-slate-950 border border-slate-800/80"
-                      >
-                        <span className="font-medium text-slate-200 truncate max-w-[160px]">
-                          {ex?.name || setObj.exercise_id}
-                        </span>
-                        <span className="font-mono text-cyan-300 font-bold">
+                      <div key={sIdx} className="flex items-center justify-between text-xs py-2 px-3 rounded-lg bg-[#0F0E0E] border border-[#3E3A3A]">
+                        <div>
+                          <span className="font-bold text-[#F9F9F9] block truncate max-w-[140px]">
+                            {ex?.name || setObj.exercise_id}
+                          </span>
+                          {setObj.notes && <span className="text-[10px] text-[#7D7D7D] block">{setObj.notes}</span>}
+                        </div>
+                        <span className="font-mono text-[#F9F9F9] font-bold">
                           {setObj.weight_kg}kg × {setObj.reps}
                         </span>
                       </div>
@@ -166,9 +184,9 @@ export default function HistoryPage() {
           ))}
 
           {logs.length === 0 && (
-            <div className="glass-card rounded-2xl p-8 border border-slate-800 text-center text-slate-400 space-y-2">
-              <Dumbbell className="w-8 h-8 text-slate-600 mx-auto" />
-              <p className="text-sm">Belum ada riwayat latihan. Mulai latihan pertama kamu di menu <strong>Start Workout</strong>!</p>
+            <div className="taste-card p-8 text-center text-[#7D7D7D] font-mono text-xs space-y-2">
+              <Dumbbell className="w-6 h-6 text-[#3E3A3A] mx-auto" />
+              <p>Belum ada riwayat latihan. Mulai latihan pertama kamu di menu <strong>Catat Sesi</strong>!</p>
             </div>
           )}
         </div>

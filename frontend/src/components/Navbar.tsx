@@ -2,41 +2,37 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Dumbbell, Calendar, PlayCircle, Trophy, Flame, Scale } from 'lucide-react';
+import { Dumbbell, Calendar, PlayCircle, Trophy, BarChart2 } from 'lucide-react';
 
 export default function Navbar() {
   const pathname = usePathname();
 
   const navItems = [
-    { name: 'Dashboard', href: '/', icon: Flame },
+    { name: 'Dashboard', href: '/', icon: BarChart2 },
     { name: 'Jadwal Split', href: '/routines', icon: Calendar },
-    { name: 'Start Workout', href: '/logger', icon: PlayCircle, highlight: true },
-    { name: 'History & PR', href: '/history', icon: Trophy },
+    { name: 'Catat Sesi', href: '/logger', icon: PlayCircle, highlight: true },
+    { name: 'Analytics & PR', href: '/history', icon: Trophy },
   ];
 
   return (
     <>
-      {/* Top Navbar Desktop & Mobile Header */}
-      <header className="sticky top-0 z-50 glass-card border-b border-slate-800/80 bg-slate-950/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      {/* Top Header */}
+      <header className="sticky top-0 z-50 bg-[#010101]/90 backdrop-blur-md border-b border-[#3E3A3A]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-violet-600 p-0.5 shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
-              <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                <Dumbbell className="w-5 h-5 text-cyan-400 -rotate-12 group-hover:rotate-0 transition-transform" />
-              </div>
+            <div className="w-9 h-9 rounded-lg bg-[#1A1919] border border-[#3E3A3A] flex items-center justify-center text-white group-hover:border-[#7D7D7D] transition-colors">
+              <Dumbbell className="w-4 h-4 text-white -rotate-12" />
             </div>
-            <div>
-              <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-cyan-400 via-teal-300 to-violet-400 bg-clip-text text-transparent">
-                NAOO<span className="text-white">LIFT</span>
-              </span>
-              <span className="hidden sm:inline-block ml-2 text-[10px] font-semibold uppercase tracking-widest px-2 py-0.5 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-full">
-                Tracker
+            <div className="flex items-baseline gap-2">
+              <span className="font-extrabold text-lg tracking-tight text-[#F9F9F9]">NAOOLIFT</span>
+              <span className="text-[10px] font-semibold text-[#7D7D7D] tracking-widest uppercase border border-[#3E3A3A] px-2 py-0.5 rounded-full bg-[#1A1919]">
+                WORKOUT LOG
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1.5">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               const Icon = item.icon;
@@ -44,15 +40,15 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm transition-all ${
+                  className={`flex items-center gap-2 px-3.5 py-2 rounded-lg font-medium text-xs transition-all ${
                     item.highlight
-                      ? 'bg-gradient-to-r from-cyan-500 to-violet-600 text-white shadow-lg shadow-cyan-500/25 hover:opacity-95 hover:scale-[1.02]'
+                      ? 'bg-[#F9F9F9] text-[#010101] font-bold hover:bg-white'
                       : isActive
-                      ? 'bg-slate-800/90 text-cyan-400 border border-cyan-500/30'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                      ? 'bg-[#1A1919] text-[#F9F9F9] border border-[#3E3A3A]'
+                      : 'text-[#7D7D7D] hover:text-[#F9F9F9] hover:bg-[#1A1919]/60'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-cyan-400' : ''}`} />
+                  <Icon className="w-3.5 h-3.5" />
                   {item.name}
                 </Link>
               );
@@ -61,8 +57,8 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile Bottom Fixed Navigation Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 glass-card bg-slate-950/90 border-t border-slate-800/80 px-2 py-2">
+      {/* Mobile Bottom Fixed Nav */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#010101]/95 backdrop-blur-lg border-t border-[#3E3A3A] px-3 py-2">
         <div className="flex items-center justify-around">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
@@ -71,24 +67,20 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex flex-col items-center gap-1 px-3 py-1.5 rounded-xl transition-all ${
-                  item.highlight
-                    ? 'text-cyan-400 font-bold scale-105'
-                    : isActive
-                    ? 'text-cyan-400 font-semibold'
-                    : 'text-slate-400 hover:text-slate-200'
+                className={`flex flex-col items-center gap-1 px-3 py-1 rounded-lg transition-colors ${
+                  isActive ? 'text-[#F9F9F9] font-bold' : 'text-[#7D7D7D]'
                 }`}
               >
                 <div
-                  className={`p-1.5 rounded-xl ${
+                  className={`p-1.5 rounded-lg ${
                     item.highlight
-                      ? 'bg-gradient-to-r from-cyan-500/20 to-violet-500/20 border border-cyan-500/40 text-cyan-400 shadow-md shadow-cyan-500/20'
+                      ? 'bg-[#F9F9F9] text-[#010101]'
                       : isActive
-                      ? 'bg-cyan-500/10 text-cyan-400'
+                      ? 'bg-[#1A1919] text-[#F9F9F9] border border-[#3E3A3A]'
                       : ''
                   }`}
                 >
-                  <Icon className="w-5 h-5" />
+                  <Icon className="w-4 h-4" />
                 </div>
                 <span className="text-[10px] tracking-tight">{item.name}</span>
               </Link>

@@ -9,12 +9,18 @@ Dokumen ini adalah **Master Reference Blueprint** untuk seluruh modul, fitur, ar
 - **Frontend Project**: `z:\Portofolio\NaooLift\frontend`
   - Framework: **Next.js 14+ (App Router)** + TypeScript + Tailwind CSS.
   - UI Design System: **Anti-Slop Design Framework (`z:\Portofolio\NaooLift\taste-skill`)**.
-  - Style: **Minimalist, Clean, High-Contrast Dark Mode** (Inspirasi: Hevy App, Strong, & Linear.app).
+  - Color Palette (`Plate.jpg`):
+    - **Caviar** (`#010101`): Pure Velvet Black Canvas
+    - **Rein** (`#181717` / `#242222`): Dark Slate Cards & Surfaces
+    - **Shadow** (`#3E3A3A` / `#4E4949`): Subtle Crisp Dividers & Borders
+    - **Mustang** (`#7D7D7D`): Muted Secondary Text & Subtitles
+    - **Pure White** (`#F9F9F9`): Primary Crisp Headings & Weight Numbers
+    - **Gold / Amber** (`#F59E0B`): PR Badges & Gym Rank Tiers
+    - **Emerald** (`#10B981`): Completed Set Action Highlights
   - Responsif: Layout desktop & Mobile Bottom Navigation Bar.
 - **Backend API Project**: `z:\Portofolio\NaooLift\backend`
   - Language: **Go (Golang)** REST API Server (`main.go`, `go.mod`).
   - ORM / DB: GORM + SQLite / PostgreSQL.
-- **Design Skill Reference**: `z:\Portofolio\NaooLift\taste-skill`
 - **GitHub Repository**:
   - URL: **`https://github.com/zysrnh/NaooLift_Project.git`**
 

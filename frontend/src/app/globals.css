@@ -2,22 +2,28 @@
 
 @layer base {
   :root {
-    --bg-main: #0B0F19;
-    --card-bg: #111827;
-    --card-hover: #1F2937;
-    --border-color: #1F2937;
-    --accent-primary: #3B82F6;
-    --accent-cyan: #06B6D4;
+    /* Palette from Plate.jpg (Luxury Dark Monochromatic) */
+    --color-caviar: #010101;     /* Pure Velvet Canvas */
+    --color-rein-dark: #121212;  /* Deep Surface */
+    --color-rein: #1A1919;       /* Primary Card Surface */
+    --color-rein-hover: #262424; /* Card Hover Surface */
+    --color-shadow: #3E3A3A;     /* Crisp Border & Divider */
+    --color-shadow-light: #524C4C;
+    --color-mustang: #7D7D7D;    /* Muted Secondary Text */
+    --color-text-white: #F9F9F9; /* High-Contrast Headings & Numbers */
+    
+    /* Accents */
+    --accent-gold: #F59E0B;
     --accent-emerald: #10B981;
-    --accent-amber: #F59E0B;
-    --accent-purple: #8B5CF6;
+    --accent-cyan: #06B6D4;
   }
 
   body {
-    background-color: var(--bg-main);
-    color: #F9FAFB;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--color-caviar);
+    color: var(--color-text-white);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Geist Sans", "Segoe UI", Roboto, sans-serif;
     overflow-x: hidden;
+    letter-spacing: -0.01em;
   }
 }
 
@@ -27,39 +33,38 @@
   height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B0F19;
+  background: #010101;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1F2937;
+  background: #3E3A3A;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #374151;
+  background: #524C4C;
 }
 
-/* Clean minimal card */
-.clean-card {
-  background-color: #111827;
-  border: 1px solid #1F2937;
-  border-radius: 1rem;
+/* Taste Skill Clean Card System */
+.taste-card {
+  background-color: #1A1919;
+  border: 1px solid #3E3A3A;
+  border-radius: 12px;
+  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.clean-card-hover {
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-.clean-card-hover:hover {
-  border-color: #374151;
+.taste-card:hover {
+  border-color: #524C4C;
 }
 
-/* Custom input styling */
-.clean-input {
-  background-color: #030712;
-  border: 1px solid #1F2937;
-  border-radius: 0.75rem;
-  color: #F9FAFB;
+/* Taste Skill Clean Input */
+.taste-input {
+  background-color: #0F0E0E;
+  border: 1px solid #3E3A3A;
+  border-radius: 8px;
+  color: #F9F9F9;
   transition: border-color 0.2s ease;
 }
-.clean-input:focus {
+
+.taste-input:focus {
   outline: none;
-  border-color: #3B82F6;
+  border-color: #7D7D7D;
 }
