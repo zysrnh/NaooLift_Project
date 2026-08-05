@@ -27,17 +27,17 @@ export default function LoginPage() {
           router.push('/logger');
         }
       } else {
-        setErrorMsg(res.message || 'Email atau password salah.');
+        setErrorMsg(res.message || 'Alamat email atau kata sandi tidak sesuai.');
       }
     } catch {
-      setErrorMsg('Gagal menghubungkan ke server.');
+      setErrorMsg('Gagal terhubung ke server autentikasi.');
     } finally {
       setIsLoading(false);
     }
   };
 
   const fillAdminCredentials = () => {
-    setEmail('admin@naoo.app');
+    setEmail('admin@naoolift.com');
     setPassword('admin123');
   };
 
@@ -50,25 +50,25 @@ export default function LoginPage() {
             <Dumbbell className="w-6 h-6 -rotate-12" />
           </div>
           <span className="text-[10px] font-mono text-[#B3B7BA] uppercase tracking-widest block">
-            NAOOLIFT / AUTHENTICATION
+            NAOOLIFT / AUTHENTICATION PORTAL
           </span>
           <h1 className="text-2xl font-heading font-black text-[#D3D1CE]">
             MASUK KE AKUN
           </h1>
           <p className="text-xs text-[#B3B7BA]">
-            Masukkan email dan password untuk melanjutkan ke Sesi Gym atau Dashboard Admin.
+            Masukkan alamat email dan kata sandi Anda untuk melanjutkan ke Portal Sesi Gym atau Console Administrator.
           </p>
         </div>
 
         {/* Quick Admin Auth Button */}
         <div className="bg-[#090F15] p-3 rounded-sm flex items-center justify-between">
-          <span className="text-[10px] font-mono text-[#B3B7BA]">LOGIN ADMIN DASHBOARD</span>
+          <span className="text-[10px] font-mono text-[#B3B7BA]">PORTAL ADMINISTRATOR</span>
           <button
             type="button"
             onClick={fillAdminCredentials}
             className="text-[10px] font-heading font-bold text-[#D3D1CE] border border-[#262E36] px-2.5 py-1 rounded-sm hover:bg-[#262E36] transition-colors flex items-center gap-1"
           >
-            <ShieldCheck className="w-3 h-3 text-emerald-400" /> Auto-Fill Admin
+            <ShieldCheck className="w-3 h-3 text-emerald-400" /> Isi Otomatis Kredensial
           </button>
         </div>
 
@@ -83,13 +83,13 @@ export default function LoginPage() {
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-1">
             <label className="text-[10px] font-mono text-[#B3B7BA] uppercase block">
-              EMAIL ADDRESS
+              ALAMAT EMAIL
             </label>
             <div className="relative">
               <Mail className="w-4 h-4 text-[#B3B7BA] absolute left-3 top-3" />
               <input
                 type="email"
-                placeholder="nama@domain.com atau admin@naoo.app"
+                placeholder="nama@domain.com atau admin@naoolift.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="solid-input w-full pl-9 pr-4 py-2.5 text-xs"
@@ -100,7 +100,7 @@ export default function LoginPage() {
 
           <div className="space-y-1">
             <label className="text-[10px] font-mono text-[#B3B7BA] uppercase block">
-              PASSWORD
+              KATA SANDI
             </label>
             <div className="relative">
               <Lock className="w-4 h-4 text-[#B3B7BA] absolute left-3 top-3" />
@@ -118,9 +118,9 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full solid-btn-primary py-3 text-xs uppercase tracking-wider flex items-center justify-center gap-2 pt-3"
+            className="w-full solid-btn-primary py-3.5 text-xs uppercase tracking-wider flex items-center justify-center gap-2"
           >
-            {isLoading ? 'Memproses...' : 'Masuk Sekarang'}
+            {isLoading ? 'Memproses Otentikasi...' : 'MASUK SEKARANG'}
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
@@ -128,14 +128,14 @@ export default function LoginPage() {
         {/* Footer Link */}
         <div className="pt-4 text-center text-xs font-mono text-[#B3B7BA] space-y-2">
           <div>
-            Belum punya akun?{' '}
+            Belum memiliki akun?{' '}
             <Link href="/register" className="text-[#D3D1CE] font-bold underline hover:text-[#FFFFFF]">
               Daftar Akun Baru
             </Link>
           </div>
           <div>
             <Link href="/" className="text-[#B3B7BA] hover:text-[#D3D1CE]">
-              ← Kembali ke Beranda
+              ← Kembali ke Halaman Utama
             </Link>
           </div>
         </div>
