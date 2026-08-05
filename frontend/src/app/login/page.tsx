@@ -27,10 +27,10 @@ export default function LoginPage() {
           router.push('/logger');
         }
       } else {
-        setErrorMsg(res.message || 'Alamat email atau kata sandi tidak sesuai.');
+        setErrorMsg(res.message || 'Email atau password salah.');
       }
     } catch {
-      setErrorMsg('Gagal terhubung ke server autentikasi.');
+      setErrorMsg('Gagal terhubung ke server.');
     } finally {
       setIsLoading(false);
     }
@@ -50,25 +50,22 @@ export default function LoginPage() {
             <Dumbbell className="w-6 h-6 -rotate-12" />
           </div>
           <span className="text-[10px] font-mono text-[#B3B7BA] uppercase tracking-widest block">
-            NAOOLIFT / AUTHENTICATION PORTAL
+            NAOOLIFT / AUTHENTICATION
           </span>
           <h1 className="text-2xl font-heading font-black text-[#D3D1CE]">
-            MASUK KE AKUN
+            SIGN IN
           </h1>
-          <p className="text-xs text-[#B3B7BA]">
-            Masukkan alamat email dan kata sandi Anda untuk melanjutkan ke Portal Sesi Gym atau Console Administrator.
-          </p>
         </div>
 
         {/* Quick Admin Auth Button */}
         <div className="bg-[#090F15] p-3 rounded-sm flex items-center justify-between">
-          <span className="text-[10px] font-mono text-[#B3B7BA]">PORTAL ADMINISTRATOR</span>
+          <span className="text-[10px] font-mono text-[#B3B7BA]">ADMIN DEMO</span>
           <button
             type="button"
             onClick={fillAdminCredentials}
             className="text-[10px] font-heading font-bold text-[#D3D1CE] border border-[#262E36] px-2.5 py-1 rounded-sm hover:bg-[#262E36] transition-colors flex items-center gap-1"
           >
-            <ShieldCheck className="w-3 h-3 text-emerald-400" /> Isi Otomatis Kredensial
+            <ShieldCheck className="w-3 h-3 text-emerald-400" /> Auto-Fill Admin
           </button>
         </div>
 
@@ -83,13 +80,13 @@ export default function LoginPage() {
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-1">
             <label className="text-[10px] font-mono text-[#B3B7BA] uppercase block">
-              ALAMAT EMAIL
+              EMAIL
             </label>
             <div className="relative">
               <Mail className="w-4 h-4 text-[#B3B7BA] absolute left-3 top-3" />
               <input
                 type="email"
-                placeholder="nama@domain.com atau admin@naoolift.com"
+                placeholder="email@domain.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="solid-input w-full pl-9 pr-4 py-2.5 text-xs"
@@ -100,7 +97,7 @@ export default function LoginPage() {
 
           <div className="space-y-1">
             <label className="text-[10px] font-mono text-[#B3B7BA] uppercase block">
-              KATA SANDI
+              PASSWORD
             </label>
             <div className="relative">
               <Lock className="w-4 h-4 text-[#B3B7BA] absolute left-3 top-3" />
@@ -120,7 +117,7 @@ export default function LoginPage() {
             disabled={isLoading}
             className="w-full solid-btn-primary py-3.5 text-xs uppercase tracking-wider flex items-center justify-center gap-2"
           >
-            {isLoading ? 'Memproses Otentikasi...' : 'MASUK SEKARANG'}
+            {isLoading ? 'Processing...' : 'SIGN IN'}
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
@@ -128,14 +125,14 @@ export default function LoginPage() {
         {/* Footer Link */}
         <div className="pt-4 text-center text-xs font-mono text-[#B3B7BA] space-y-2">
           <div>
-            Belum memiliki akun?{' '}
+            Belum punya akun?{' '}
             <Link href="/register" className="text-[#D3D1CE] font-bold underline hover:text-[#FFFFFF]">
-              Daftar Akun Baru
+              Sign Up
             </Link>
           </div>
           <div>
             <Link href="/" className="text-[#B3B7BA] hover:text-[#D3D1CE]">
-              ← Kembali ke Halaman Utama
+              ← Beranda
             </Link>
           </div>
         </div>

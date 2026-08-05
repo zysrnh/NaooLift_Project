@@ -30,10 +30,10 @@ export default function AdminDashboardPage() {
       if (res.success && res.user) {
         setCurrentUser(res.user);
       } else {
-        setErrorMsg(res.message || 'Kredensial administrator tidak valid.');
+        setErrorMsg(res.message || 'Kredensial admin salah.');
       }
     } catch {
-      setErrorMsg('Gagal melakukan verifikasi otentikasi administrator.');
+      setErrorMsg('Gagal otentikasi admin.');
     } finally {
       setIsLoading(false);
     }
@@ -48,7 +48,7 @@ export default function AdminDashboardPage() {
 
   const isAdminLoggedIn = currentUser && currentUser.role === 'admin';
 
-  // IF NOT LOGGED IN AS ADMIN: Professional Admin Authentication Screen
+  // IF NOT LOGGED IN AS ADMIN: Clean Minimal Admin Auth Screen
   if (!isAdminLoggedIn) {
     return (
       <div className="fixed inset-0 z-50 bg-[#090F15] w-screen h-screen flex items-center justify-center p-4">
@@ -59,20 +59,17 @@ export default function AdminDashboardPage() {
               <ShieldCheck className="w-6 h-6 text-[#090F15]" />
             </div>
             <span className="text-[10px] font-mono text-[#B3B7BA] uppercase tracking-widest block">
-              NAOOLIFT / MANAGEMENT CONSOLE
+              NAOOLIFT / ADMIN CONSOLE
             </span>
             <h1 className="text-2xl font-heading font-black text-[#D3D1CE]">
-              AUTENTIKASI ADMINISTRATOR
+              ADMIN LOGIN
             </h1>
-            <p className="text-xs text-[#B3B7BA]">
-              Silakan masukkan kredensial akun administrator untuk mengakses Portal Dashboard NaooLift.
-            </p>
           </div>
 
           {/* Account Credential Box */}
           <div className="bg-[#090F15] p-3 rounded-sm text-xs font-mono text-center space-y-1">
-            <span className="text-[#B3B7BA] block text-[10px]">KREDENSIAL AKSES DEMO ADMINISTRATOR:</span>
-            <div className="text-[#D3D1CE] font-bold">Email: admin@naoolift.com | Password: admin123</div>
+            <span className="text-[#B3B7BA] block text-[10px]">DEMO ADMIN:</span>
+            <div className="text-[#D3D1CE] font-bold">Email: admin@naoolift.com | Pass: admin123</div>
           </div>
 
           {errorMsg && (
@@ -85,12 +82,13 @@ export default function AdminDashboardPage() {
           <form onSubmit={handleAdminLogin} className="space-y-4">
             <div className="space-y-1">
               <label className="text-[10px] font-mono text-[#B3B7BA] uppercase block">
-                ALAMAT EMAIL ADMINISTRATOR
+                EMAIL
               </label>
               <div className="relative">
                 <Mail className="w-4 h-4 text-[#B3B7BA] absolute left-3 top-3" />
                 <input
                   type="email"
+                  placeholder="email@domain.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="solid-input w-full pl-9 pr-4 py-2.5 text-xs"
@@ -101,12 +99,13 @@ export default function AdminDashboardPage() {
 
             <div className="space-y-1">
               <label className="text-[10px] font-mono text-[#B3B7BA] uppercase block">
-                KATA SANDI ADMINISTRATOR
+                PASSWORD
               </label>
               <div className="relative">
                 <Lock className="w-4 h-4 text-[#B3B7BA] absolute left-3 top-3" />
                 <input
                   type="password"
+                  placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="solid-input w-full pl-9 pr-4 py-2.5 text-xs"
@@ -120,14 +119,14 @@ export default function AdminDashboardPage() {
               disabled={isLoading}
               className="w-full solid-btn-primary py-3.5 text-xs uppercase tracking-wider flex items-center justify-center gap-2"
             >
-              {isLoading ? 'Memverifikasi...' : 'MASUK SEBAGAI ADMINISTRATOR'}
+              {isLoading ? 'Processing...' : 'SIGN IN AS ADMIN'}
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
 
           <div className="pt-2 text-center text-xs font-mono">
             <Link href="/" className="text-[#B3B7BA] hover:text-[#D3D1CE] inline-flex items-center gap-1">
-              <ArrowLeft className="w-3.5 h-3.5" /> Kembali ke Halaman Utama
+              <ArrowLeft className="w-3.5 h-3.5" /> Beranda
             </Link>
           </div>
         </div>
@@ -135,27 +134,27 @@ export default function AdminDashboardPage() {
     );
   }
 
-  // IF LOGGED IN AS ADMIN: 100% Fullscreen Nickelfox Dashboard with Professional Top Bar
+  // IF LOGGED IN AS ADMIN: 100% Fullscreen Nickelfox Dashboard
   return (
     <div className="fixed inset-0 z-50 bg-[#090F15] w-screen h-screen overflow-hidden flex flex-col">
-      {/* Top Professional Control Bar */}
+      {/* Top Floating Control Bar */}
       <div className="bg-[#090F15] px-4 py-2 flex items-center justify-between border-b border-[#262E36] z-50 text-xs font-mono">
         <div className="flex items-center gap-3">
-          <span className="font-heading font-black text-sm text-[#D3D1CE]">NAOOLIFT MANAGEMENT CONSOLE</span>
+          <span className="font-heading font-black text-sm text-[#D3D1CE]">NAOOLIFT ADMIN</span>
           <span className="bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded text-[10px] uppercase font-bold flex items-center gap-1">
-            <ShieldCheck className="w-3 h-3" /> SISTEM TERAUTENTIKASI
+            <ShieldCheck className="w-3 h-3" /> AUTHENTICATED
           </span>
         </div>
 
         <div className="flex items-center gap-6">
           <Link href="/" className="text-[#B3B7BA] hover:text-[#D3D1CE] flex items-center gap-1">
-            <ArrowLeft className="w-3.5 h-3.5" /> Kembali ke Halaman Utama
+            <ArrowLeft className="w-3.5 h-3.5" /> Beranda
           </Link>
           <button
             onClick={handleAdminLogout}
             className="text-rose-400 hover:text-rose-300 font-bold flex items-center gap-1"
           >
-            <LogOut className="w-3.5 h-3.5" /> Keluar Administrator
+            <LogOut className="w-3.5 h-3.5" /> Logout Admin
           </button>
         </div>
       </div>
