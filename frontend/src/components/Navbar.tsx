@@ -2,13 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Dumbbell, Calendar, Play, Trophy, Sparkles } from 'lucide-react';
+import { Dumbbell, Calendar, Play, Trophy } from 'lucide-react';
 
 export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="bg-[#090F15] border-b border-[#6C6D74] w-full">
+    <header className="bg-[#090F15] w-full border-b border-[#262E36]/40">
       <div className="w-full px-4 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 group">

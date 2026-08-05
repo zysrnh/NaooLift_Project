@@ -16,10 +16,10 @@
 
 @layer base {
   :root {
-    /* Exact Solid Palette */
+    /* Exact Solid Palette - No Border Line Style */
     --color-midnight: #090F15;     /* Canvas Background */
     --color-mountainside: #262E36; /* Card Surface */
-    --color-apres-ski: #6C6D74;    /* Border & Dividers */
+    --color-apres-ski: #6C6D74;    /* Muted Text */
     --color-slopes: #B3B7BA;       /* Secondary Subtext */
     --color-artic: #D3D1CE;        /* Primary Typography */
   }
@@ -58,16 +58,16 @@
   background: #6C6D74;
 }
 
-/* Taste Skill Anti-Slop Solid Card System */
+/* Taste Skill Anti-Slop Solid Card System (NO BORDER LINES) */
 .solid-card {
   background-color: #262E36;
-  border: 1px solid #6C6D74;
+  border: none;
   border-radius: 6px;
-  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .solid-card:hover {
-  border-color: #B3B7BA;
+  background-color: #2E3740;
 }
 
 /* Solid Button */
@@ -77,6 +77,7 @@
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
   border-radius: 4px;
+  border: none;
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
@@ -91,22 +92,22 @@
 .solid-btn-secondary {
   background-color: #262E36;
   color: #D3D1CE;
-  border: 1px solid #6C6D74;
+  border: none;
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
   border-radius: 4px;
-  transition: border-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .solid-btn-secondary:hover {
-  border-color: #D3D1CE;
+  background-color: #2E3740;
   color: #FFFFFF;
 }
 
 /* Solid Input */
 .solid-input {
   background-color: #090F15;
-  border: 1px solid #6C6D74;
+  border: none;
   border-radius: 4px;
   color: #D3D1CE;
   font-family: 'Space Grotesk', monospace;
@@ -114,5 +115,5 @@
 
 .solid-input:focus {
   outline: none;
-  border-color: #D3D1CE;
+  background-color: #121A24;
 }

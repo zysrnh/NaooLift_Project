@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Play, Calendar, Dumbbell, Trophy, Shield, ArrowUpRight, ArrowRight, Clock, Award, CheckCircle2, Zap, Sparkles, Layers, Cpu, Search, Database, Smartphone, Bell, Flame } from 'lucide-react';
+import { Play, Calendar, Dumbbell, Trophy, Shield, ArrowUpRight, ArrowRight, Smartphone, CheckCircle2 } from 'lucide-react';
 
 export default function LandingPage() {
   const stats = [
@@ -66,13 +66,13 @@ export default function LandingPage() {
 
   return (
     <div className="space-y-16 py-4 animate-fadeIn">
-      {/* 1. HERO SECTION - Replicating AV / DIGITAL DESIGNER Exact Hero */}
+      {/* 1. HERO SECTION - Replicating AV / DIGITAL DESIGNER Exact Hero without Border Lines */}
       <section className="solid-card p-8 sm:p-14 relative overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          {/* Left Column: Massive Headline & Description */}
+          {/* Left Column: Huge Editorial Typography & Description */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="text-xs font-mono text-[#B3B7BA] uppercase tracking-widest border-b border-[#6C6D74] pb-2 inline-block">
+            <div className="text-xs font-mono text-[#B3B7BA] uppercase tracking-widest pb-1 inline-block">
               WORKOUT SCHEDULER & GYM LOG SYSTEM
             </div>
 
@@ -107,20 +107,20 @@ export default function LandingPage() {
 
           {/* Right Column: Hero Gym Asset in Dark Frame */}
           <div className="lg:col-span-5 relative">
-            <div className="solid-card p-2 bg-[#090F15] border border-[#6C6D74] relative overflow-hidden group">
+            <div className="solid-card p-2 bg-[#090F15] relative overflow-hidden group">
               <img
                 src="/hero-gym.jpg"
                 alt="NaooLift Dark Gym Photography"
                 className="w-full h-[380px] sm:h-[460px] object-cover rounded-sm grayscale contrast-125 group-hover:scale-105 transition-transform duration-500"
               />
               
-              {/* Floating Badge like "AVAILABLE FOR FREELANCE" in Image 4 */}
-              <div className="absolute top-4 right-4 bg-[#090F15]/90 border border-[#6C6D74] px-3 py-1.5 rounded-sm text-right">
+              {/* Floating Badge */}
+              <div className="absolute top-4 right-4 bg-[#090F15] px-3 py-1.5 rounded-sm text-right">
                 <span className="text-[9px] font-mono text-[#B3B7BA] uppercase block">SYSTEM READY</span>
                 <span className="text-[11px] font-heading font-bold text-[#D3D1CE] uppercase">FOR WORKOUT LOGGING</span>
               </div>
 
-              <div className="absolute bottom-4 left-4 right-4 bg-[#090F15]/90 border border-[#6C6D74] p-3 text-xs font-mono flex items-center justify-between">
+              <div className="absolute bottom-4 left-4 right-4 bg-[#090F15] p-3 text-xs font-mono flex items-center justify-between">
                 <span className="text-[#D3D1CE] font-bold">EST. 2026 / NAOOLIFT</span>
                 <span className="text-[#B3B7BA] uppercase text-[10px]">SOLID EDITORIAL SYSTEM</span>
               </div>
@@ -130,13 +130,13 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 2. HORIZONTAL STATS CARD - Replicating Image 4 Full-Width Stat Card */}
-      <section className="solid-card p-8 bg-[#262E36] border border-[#6C6D74]">
-        <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#6C6D74]">
+      {/* 2. HORIZONTAL STATS CARD - Clean No Border Dividers */}
+      <section className="solid-card p-8 bg-[#262E36]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((st, idx) => {
             const Icon = st.icon;
             return (
-              <div key={idx} className="p-4 sm:p-6 space-y-2 text-center md:text-left">
+              <div key={idx} className="p-2 space-y-2 text-center md:text-left">
                 <div className="flex items-center justify-center md:justify-start gap-2 text-[#B3B7BA] mb-1">
                   <Icon className="w-4 h-4 text-[#D3D1CE]" />
                 </div>
@@ -157,7 +157,7 @@ export default function LandingPage() {
 
       {/* 3. FEATURED WORK / CORE MODULES (3 Bento Cards in a Row) */}
       <section className="space-y-6">
-        <div className="flex items-center justify-between border-b border-[#6C6D74] pb-4">
+        <div className="flex items-center justify-between pb-2">
           <div>
             <span className="text-[10px] font-mono text-[#B3B7BA] uppercase block">CORE SYSTEM</span>
             <h2 className="text-2xl sm:text-3xl font-heading font-black text-[#D3D1CE]">
@@ -195,11 +195,11 @@ export default function LandingPage() {
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-[#6C6D74] flex items-center justify-between">
+              <div className="pt-4 flex items-center justify-between">
                 <span className="text-xs font-mono text-[#B3B7BA]">NAOOLIFT MODULE</span>
                 <Link
                   href={item.link}
-                  className="w-8 h-8 rounded-full border border-[#6C6D74] flex items-center justify-center text-[#D3D1CE] group-hover:bg-[#D3D1CE] group-hover:text-[#090F15] transition-colors"
+                  className="w-8 h-8 rounded-full bg-[#090F15] flex items-center justify-center text-[#D3D1CE] group-hover:bg-[#D3D1CE] group-hover:text-[#090F15] transition-colors"
                 >
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
@@ -209,12 +209,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 4. CORE CAPABILITIES & TOOLS/TECHNOLOGIES GRID (2 Columns - Replicating Image 4) */}
+      {/* 4. CORE CAPABILITIES & TOOLS/TECHNOLOGIES GRID (2 Columns) */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         {/* Left Column: Core Capabilities (6 Grid Items) */}
         <div className="lg:col-span-7 solid-card p-8 space-y-6">
-          <div className="border-b border-[#6C6D74] pb-4">
+          <div className="pb-2">
             <span className="text-[10px] font-mono text-[#B3B7BA] uppercase block">SYSTEM ARCHITECTURE</span>
             <h2 className="text-2xl font-heading font-black text-[#D3D1CE]">
               KAPABILITAS & FITUR UTAMA
@@ -240,7 +240,7 @@ export default function LandingPage() {
 
         {/* Right Column: Tools & Technologies Stack */}
         <div className="lg:col-span-5 solid-card p-8 space-y-6">
-          <div className="border-b border-[#6C6D74] pb-4">
+          <div className="pb-2">
             <span className="text-[10px] font-mono text-[#B3B7BA] uppercase block">BACKEND & FRONTEND STACK</span>
             <h2 className="text-2xl font-heading font-black text-[#D3D1CE]">
               TEKNOLOGI INTEGRATED
@@ -249,16 +249,16 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-2 gap-3">
             {techStack.map((tech, idx) => (
-              <div key={idx} className="bg-[#090F15] border border-[#6C6D74] p-3 rounded-sm">
+              <div key={idx} className="bg-[#090F15] p-3 rounded-sm">
                 <span className="text-xs font-heading font-bold text-[#D3D1CE] block">{tech.name}</span>
                 <span className="text-[10px] font-mono text-[#B3B7BA]">{tech.type}</span>
               </div>
             ))}
           </div>
 
-          <div className="pt-4 border-t border-[#6C6D74] space-y-2">
+          <div className="pt-2 space-y-2">
             <span className="text-[10px] font-mono text-[#B3B7BA] uppercase block">SYSTEM CERTIFICATION & STORAGE</span>
-            <div className="bg-[#090F15] border border-[#6C6D74] p-3 rounded-sm flex items-center justify-between text-xs font-mono">
+            <div className="bg-[#090F15] p-3 rounded-sm flex items-center justify-between text-xs font-mono">
               <span className="text-[#D3D1CE]">MySQL 8.0 Local DB</span>
               <span className="text-[#B3B7BA]">CONNECTED (3306)</span>
             </div>
@@ -267,9 +267,9 @@ export default function LandingPage() {
 
       </section>
 
-      {/* 5. WORKOUT PROCESS (5 Horizontal Cards - Replicating Image 4 MY DESIGN PROCESS) */}
+      {/* 5. WORKOUT PROCESS (5 Horizontal Cards) */}
       <section className="space-y-6">
-        <div className="border-b border-[#6C6D74] pb-4">
+        <div className="pb-2">
           <span className="text-[10px] font-mono text-[#B3B7BA] uppercase block">WORKFLOW STEP</span>
           <h2 className="text-2xl sm:text-3xl font-heading font-black text-[#D3D1CE]">
             ALUR PENGGUNAAN NAOOLIFT
@@ -279,7 +279,7 @@ export default function LandingPage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
           {workoutProcess.map((proc) => (
             <div key={proc.step} className="solid-card p-5 space-y-3">
-              <span className="text-xl font-heading font-black text-[#6C6D74] block">
+              <span className="text-xl font-heading font-black text-[#B3B7BA] block">
                 {proc.step}
               </span>
               <h3 className="font-heading font-bold text-xs text-[#D3D1CE] uppercase tracking-wider">
@@ -293,8 +293,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 6. BIG BOTTOM FOOTER BANNER CTA (Replicating Image 4 Bottom Banner) */}
-      <section className="solid-card p-8 sm:p-14 bg-[#262E36] border border-[#6C6D74] space-y-6">
+      {/* 6. BIG BOTTOM FOOTER BANNER CTA (No Border Lines) */}
+      <section className="solid-card p-8 sm:p-14 bg-[#262E36] space-y-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
           <div className="space-y-2 max-w-2xl">
             <span className="text-xs font-mono text-[#B3B7BA] uppercase tracking-widest">READY TO LIFT?</span>
@@ -315,7 +315,7 @@ export default function LandingPage() {
         </div>
 
         {/* Footer Contact & Copyright Bar */}
-        <div className="pt-8 border-t border-[#6C6D74] flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-[#B3B7BA]">
+        <div className="pt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-[#B3B7BA]">
           <span>© 2026 NAOOLIFT. ALL RIGHTS RESERVED.</span>
           <div className="flex items-center gap-4">
             <Link href="/" className="hover:text-[#D3D1CE]">BERANDA</Link>
