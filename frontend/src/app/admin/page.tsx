@@ -3,72 +3,171 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ShieldCheck, ArrowUpRight, ExternalLink, RefreshCw } from 'lucide-react';
-import { getCurrentUser } from '@/lib/auth';
+import { ShieldCheck, Dumbbell, Mail, Lock, ArrowRight, LogOut, ArrowLeft } from 'lucide-react';
+import { getCurrentUser, loginUser, logoutUser, UserProfile } from '@/lib/auth';
 
 export default function AdminDashboardPage() {
   const router = useRouter();
-  const [iframeKey, setIframeKey] = useState(0);
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
+  const [isClient, setIsClient] = useState(false);
+
+  // Admin login form state
+  const [email, setEmail] = useState('admin@naoolift.com');
+  const [password, setPassword] = useState('admin123');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const user = getCurrentUser();
-    // Allow view, but notify if not admin
+    setIsClient(true);
+    setCurrentUser(getCurrentUser());
   }, []);
 
-  const refreshDashboard = () => {
-    setIframeKey(prev => prev + 1);
+  const handleAdminLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMsg('');
+    setIsLoading(true);
+
+    try {
+      const res = await loginUser(email, password);
+      if (res.success && res.user) {
+        setCurrentUser(res.user);
+      } else {
+        setErrorMsg(res.message || 'Kredensial admin salah.');
+      }
+    } catch {
+      setErrorMsg('Gagal melakukan otentikasi admin.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  return (
-    <div className="space-y-4 py-2 animate-fadeIn min-h-[85vh] flex flex-col">
-      {/* Top Console Bar */}
-      <div className="solid-card p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-sm bg-[#D3D1CE] text-[#090F15] flex items-center justify-center font-heading font-black text-sm">
-            NL
-          </div>
-          <div>
-            <span className="text-[10px] font-mono text-[#B3B7BA] uppercase block">ADMIN MANAGEMENT CONSOLE</span>
-            <h1 className="text-lg font-heading font-bold text-[#D3D1CE]">
-              NICKELFOX DASHBOARD TEMPLATE
+  const handleAdminLogout = () => {
+    logoutUser();
+    setCurrentUser(null);
+  };
+
+  if (!isClient) return null;
+
+  // IF NOT LOGGED IN AS ADMIN: Show Dedicated Admin Login Screen
+  const isAdminLoggedIn = currentUser && currentUser.role === 'admin';
+
+  if (!isAdminLoggedIn) {
+    return (
+      <div className="fixed inset-0 z-50 bg-[#090F15] w-screen h-screen flex items-center justify-center p-4">
+        <div className="solid-card w-full max-w-md p-8 sm:p-10 space-y-6">
+          {/* Admin Header */}
+          <div className="text-center space-y-2">
+            <div className="w-12 h-12 rounded-sm bg-[#D3D1CE] text-[#090F15] flex items-center justify-center mx-auto mb-3">
+              <ShieldCheck className="w-6 h-6 text-emerald-600" />
+            </div>
+            <span className="text-[10px] font-mono text-[#B3B7BA] uppercase tracking-widest block">
+              NAOOLIFT / ADMIN AUTHENTICATION
+            </span>
+            <h1 className="text-2xl font-heading font-black text-[#D3D1CE]">
+              LOGIN DAHULU SEBAGAI ADMIN
             </h1>
+            <p className="text-xs text-[#B3B7BA]">
+              Masukkan akun kredensial admin untuk mengakses Fullscreen Nickelfox Admin Dashboard.
+            </p>
+          </div>
+
+          {/* Account Hint */}
+          <div className="bg-[#090F15] p-3 rounded-sm text-xs font-mono text-center space-y-1">
+            <span className="text-[#B3B7BA] block text-[10px]">AKUN DEMO ADMIN NAOOLIFT:</span>
+            <div className="text-[#D3D1CE] font-bold">Email: admin@naoolift.com | Pass: admin123</div>
+          </div>
+
+          {errorMsg && (
+            <div className="bg-rose-500/10 text-rose-400 p-3 rounded-sm text-xs font-mono text-center">
+              {errorMsg}
+            </div>
+          )}
+
+          {/* Login Form */}
+          <form onSubmit={handleAdminLogin} className="space-y-4">
+            <div className="space-y-1">
+              <label className="text-[10px] font-mono text-[#B3B7BA] uppercase block">
+                EMAIL ADMIN
+              </label>
+              <div className="relative">
+                <Mail className="w-4 h-4 text-[#B3B7BA] absolute left-3 top-3" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="solid-input w-full pl-9 pr-4 py-2.5 text-xs"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-[10px] font-mono text-[#B3B7BA] uppercase block">
+                PASSWORD ADMIN
+              </label>
+              <div className="relative">
+                <Lock className="w-4 h-4 text-[#B3B7BA] absolute left-3 top-3" />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="solid-input w-full pl-9 pr-4 py-2.5 text-xs"
+                  required
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full solid-btn-primary py-3.5 text-xs uppercase tracking-wider flex items-center justify-center gap-2"
+            >
+              {isLoading ? 'Memverifikasi...' : 'MASUK DAHULU SEBAGAI ADMIN'}
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </form>
+
+          <div className="pt-2 text-center text-xs font-mono">
+            <Link href="/" className="text-[#B3B7BA] hover:text-[#D3D1CE] inline-flex items-center gap-1">
+              <ArrowLeft className="w-3.5 h-3.5" /> Kembali ke Web Utama
+            </Link>
           </div>
         </div>
+      </div>
+    );
+  }
 
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="bg-[#090F15] px-3 py-1.5 rounded-sm text-xs font-mono text-[#D3D1CE] flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            ADMIN AUTHENTICATED
+  // IF LOGGED IN AS ADMIN: Render 100% FULLSCREEN Nickelfox Dashboard
+  return (
+    <div className="fixed inset-0 z-50 bg-[#090F15] w-screen h-screen overflow-hidden flex flex-col">
+      {/* Top Floating Control Bar */}
+      <div className="bg-[#090F15] px-4 py-2 flex items-center justify-between border-b border-[#262E36] z-50 text-xs font-mono">
+        <div className="flex items-center gap-3">
+          <span className="font-heading font-black text-sm text-[#D3D1CE]">NAOOLIFT ADMIN</span>
+          <span className="bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded text-[10px] uppercase font-bold flex items-center gap-1">
+            <ShieldCheck className="w-3 h-3" /> AUTHENTICATED
           </span>
+        </div>
 
+        <div className="flex items-center gap-4">
+          <Link href="/" className="text-[#B3B7BA] hover:text-[#D3D1CE] flex items-center gap-1">
+            ← Main Web
+          </Link>
           <button
-            onClick={refreshDashboard}
-            className="solid-btn-secondary px-3 py-1.5 text-xs flex items-center gap-1"
-            title="Reload Dashboard"
+            onClick={handleAdminLogout}
+            className="text-rose-400 hover:text-rose-300 font-bold flex items-center gap-1"
           >
-            <RefreshCw className="w-3.5 h-3.5" /> Reload
+            <LogOut className="w-3.5 h-3.5" /> Logout Admin
           </button>
-
-          <a
-            href="http://localhost:5173/nickelfox"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="solid-btn-primary px-4 py-1.5 text-xs flex items-center gap-1"
-          >
-            Buka Fullscreen <ExternalLink className="w-3.5 h-3.5" />
-          </a>
         </div>
       </div>
 
-      {/* Embedded Nickelfox Admin Dashboard */}
-      <div className="flex-1 w-full solid-card p-1 bg-[#090F15] overflow-hidden min-h-[750px]">
-        <iframe
-          key={iframeKey}
-          src="http://localhost:5173/nickelfox"
-          title="Nickelfox Admin Dashboard"
-          className="w-full h-full min-h-[750px] border-none rounded-sm"
-        />
-      </div>
+      {/* 100% FULLSCREEN NICKELFOX DASHBOARD IFRAME */}
+      <iframe
+        src="http://localhost:5173/nickelfox"
+        title="Nickelfox Admin Dashboard Fullscreen"
+        className="w-full flex-1 border-none bg-[#090F15]"
+      />
     </div>
   );
 }

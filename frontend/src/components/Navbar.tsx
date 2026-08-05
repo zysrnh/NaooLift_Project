@@ -14,6 +14,10 @@ export default function Navbar() {
     setCurrentUser(getCurrentUser());
   }, [pathname]);
 
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <header className="bg-[#090F15] w-full border-b border-[#262E36]/40">
       <div className="w-full px-4 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
