@@ -1,6 +1,6 @@
 # 🏋️⚡ NAOOLIFT - MASTER SPECIFICATION BLUEPRINT
 
-Dokumen ini adalah **Master Reference Blueprint** untuk seluruh modul, fitur, arsitektur teknis, dan alur pengerjaan sub-aplikasi **NaooLift** (Next.js + Golang API Stack).
+Dokumen ini adalah **Master Reference Blueprint** untuk seluruh modul, fitur, arsitektur teknis, integrasi notifikasi, Google Calendar, dan alur pengerjaan sub-aplikasi **NaooLift** (Next.js + Golang API Stack).
 
 ---
 
@@ -31,6 +31,9 @@ Dokumen ini adalah **Master Reference Blueprint** untuk seluruh modul, fitur, ar
    - **Target Otot**: *Chest*, *Back*, *Arms*, *Legs*, *Core*, *Shoulder*.
    - **Tipe Latihan**: *Beban/Strength*, *Bodyweight*, *Cardio*.
    - **Peralatan**: *Barbell*, *Dumbbell*, *Machine*, *Cable*, *Bodyweight*.
+3. **Integrasi Google Calendar (Sync Schedule)** 📅:
+   - Tombol **"Sync to Google Calendar"** / Expor event `.ics`.
+   - Otomatis memasukkan jadwal workout split ke Google Calendar pengguna lengkap dengan pengingat notifikasi bawaan HP.
 
 ---
 
@@ -42,9 +45,9 @@ Dokumen ini adalah **Master Reference Blueprint** untuk seluruh modul, fitur, ar
      - Beban (`kg` / `lbs` switcher)
      - Repetisi (`Reps`)
      - Tombol Centang Completed (`[✓]`)
-2. **Fitur Rest Timer (Timer Jeda Istirahat)**:
+2. **Fitur Rest Timer & Sistem Notifikasi Push (iOS & Android)** 🔔:
    - Timer hitung mundur otomatis (30s, 60s, 90s, 120s, custom).
-   - Indikator visual & suara chime saat istirahat selesai.
+   - **Push Notification Native iOS & Android**: Banner notifikasi + getar HP + suara chime saat jeda istirahat selesai (bahkan saat HP dikunci/di kantong celana).
 3. **Catatan Tambahan (Session & Set Notes)**:
    - Kolom catatan fleksibel per sesi & per set (misal: *"Beban ditambah minggu depan"*, *"Form terasa kurang oke pada set ke-3"*).
 
@@ -53,7 +56,7 @@ Dokumen ini adalah **Master Reference Blueprint** untuk seluruh modul, fitur, ar
 ### 📊 Modul C: Pemantauan Progres & Analytics
 1. **Personal Record (PR) Tracker**:
    - Deteksi otomatis rekor angkatan terberat (*Max Weight*) & repetisi terbanyak (*Max Reps*) per gerakan.
-   - Badge selebrasi PR.
+   - Badge selebrasi PR & notifikasi rekor baru.
 2. **Grafik Beban / Volume**:
    - Grafik tren peningkatan total volume angkatan (`Volume = Beban × Reps × Set`) dari waktu ke waktu.
 3. **Catatan Fisik (Body Metrics)**:
@@ -79,12 +82,22 @@ Sistem Peringkat Level Gym berdasarkan akumulasi total volume angkatan (`kg`):
 
 ---
 
-### 🚀 Modul E: Prosedur Git Push Otomatis
+### 📱 Modul E: PWA & Mobile App Wrapper (Tampilan Web -> APK HP)
+1. **Progressive Web App (PWA)**:
+   - Menambahkan `manifest.json` & Service Worker PWA di Next.js.
+   - Support PWA iOS (Safari "Add to Home Screen") & Android (Chrome "Install App").
+   - Muncul sebagai ikon aplikasi di Home Screen HP, terbuka **Fullscreen tanpa URL bar**, dan berkinerja 100% seperti Aplikasi Native.
+2. **WebView APK Wrapper**:
+   - Mempersiapkan konfigurasi WebView ringan (Capacitor/TWA) untuk menghasilkan file `.apk` asli jika ingin langsung di-install di Android.
+
+---
+
+### 🚀 Modul F: Prosedur Git Push Otomatis
 Setelah seluruh fitur selesai dibuat & teruji:
 ```bash
 git init
 git add .
-git commit -m "feat: complete NaooLift core features, clean UI, rank system, & analytics"
+git commit -m "feat: complete NaooLift core features, clean UI, rank system, Google Calendar, PWA & analytics"
 git branch -M main
 git remote add origin https://github.com/zysrnh/NaooLift_Project.git
 git push -u origin main
