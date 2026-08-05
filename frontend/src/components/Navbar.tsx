@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Dumbbell, Play, LogIn, LogOut, User as UserIcon } from 'lucide-react';
+import { Play, LogIn, LogOut, User as UserIcon } from 'lucide-react';
 import { getCurrentUser, logoutUser, UserProfile } from '@/lib/auth';
 
 export default function Navbar() {
@@ -21,11 +22,15 @@ export default function Navbar() {
   return (
     <header className="bg-[#090F15] w-full border-b border-[#262E36]/40">
       <div className="w-full px-4 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
-        {/* Brand Logo */}
+        {/* Brand Logo Image with Drop Shadow */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-8 h-8 rounded-sm bg-[#D3D1CE] flex items-center justify-center text-[#090F15] transition-transform group-hover:scale-105">
-            <Dumbbell className="w-4 h-4 -rotate-12" />
-          </div>
+          <Image
+            src="/NaooLift.png"
+            alt="NaooLift Logo"
+            width={34}
+            height={34}
+            className="w-auto h-8 drop-shadow-[0_4px_10px_rgba(255,255,255,0.25)] transition-transform group-hover:scale-105"
+          />
           <span className="font-heading font-extrabold text-xl text-[#D3D1CE] tracking-tight">
             NAOOLIFT
           </span>
