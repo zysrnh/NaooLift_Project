@@ -154,45 +154,59 @@ export function calculateUserRank(totalVolumeKg: number): UserRank {
   }
 }
 
-// ── Default Exercise Catalog ──────────────────────────────────────────────────
+// ── Default Exercise Catalog (EXACTLY 40 EXERCISES) ──────────────────────────
 export const DEFAULT_EXERCISES: Exercise[] = [
-  // Chest
+  // Chest (7)
   { id: 'ex-1', name: 'Barbell Bench Press', muscle_group: 'Chest', category_type: 'Strength', equipment: 'Barbell' },
   { id: 'ex-2', name: 'Incline Dumbbell Press', muscle_group: 'Chest', category_type: 'Strength', equipment: 'Dumbbell' },
   { id: 'ex-3', name: 'Chest Fly (Cable)', muscle_group: 'Chest', category_type: 'Strength', equipment: 'Cable' },
   { id: 'ex-4', name: 'Dips (Chest Focus)', muscle_group: 'Chest', category_type: 'Bodyweight', equipment: 'Bodyweight' },
   { id: 'ex-5', name: 'Push-Ups', muscle_group: 'Chest', category_type: 'Bodyweight', equipment: 'Bodyweight' },
+  { id: 'ex-6', name: 'Incline Barbell Press', muscle_group: 'Chest', category_type: 'Strength', equipment: 'Barbell' },
+  { id: 'ex-7', name: 'Decline Chest Press', muscle_group: 'Chest', category_type: 'Strength', equipment: 'Machine' },
 
-  // Back
-  { id: 'ex-7', name: 'Lat Pulldown', muscle_group: 'Back', category_type: 'Strength', equipment: 'Cable' },
-  { id: 'ex-8', name: 'Barbell Bent-Over Row', muscle_group: 'Back', category_type: 'Strength', equipment: 'Barbell' },
-  { id: 'ex-9', name: 'Seated Cable Row', muscle_group: 'Back', category_type: 'Strength', equipment: 'Cable' },
-  { id: 'ex-10', name: 'Conventional Deadlift', muscle_group: 'Back', category_type: 'Strength', equipment: 'Barbell' },
-  { id: 'ex-11', name: 'Pull-Ups', muscle_group: 'Back', category_type: 'Bodyweight', equipment: 'Bodyweight' },
+  // Back (7)
+  { id: 'ex-8', name: 'Lat Pulldown', muscle_group: 'Back', category_type: 'Strength', equipment: 'Cable' },
+  { id: 'ex-9', name: 'Barbell Bent-Over Row', muscle_group: 'Back', category_type: 'Strength', equipment: 'Barbell' },
+  { id: 'ex-10', name: 'Seated Cable Row', muscle_group: 'Back', category_type: 'Strength', equipment: 'Cable' },
+  { id: 'ex-11', name: 'Conventional Deadlift', muscle_group: 'Back', category_type: 'Strength', equipment: 'Barbell' },
+  { id: 'ex-12', name: 'Pull-Ups', muscle_group: 'Back', category_type: 'Bodyweight', equipment: 'Bodyweight' },
+  { id: 'ex-13', name: 'Single-Arm Dumbbell Row', muscle_group: 'Back', category_type: 'Strength', equipment: 'Dumbbell' },
+  { id: 'ex-14', name: 'T-Bar Row', muscle_group: 'Back', category_type: 'Strength', equipment: 'Barbell' },
 
-  // Legs
-  { id: 'ex-13', name: 'Barbell Back Squat', muscle_group: 'Legs', category_type: 'Strength', equipment: 'Barbell' },
-  { id: 'ex-14', name: 'Leg Press', muscle_group: 'Legs', category_type: 'Strength', equipment: 'Machine' },
-  { id: 'ex-15', name: 'Romanian Deadlift (RDL)', muscle_group: 'Legs', category_type: 'Strength', equipment: 'Barbell' },
-  { id: 'ex-16', name: 'Leg Extension', muscle_group: 'Legs', category_type: 'Strength', equipment: 'Machine' },
-  { id: 'ex-17', name: 'Lying Hamstring Curl', muscle_group: 'Legs', category_type: 'Strength', equipment: 'Machine' },
+  // Legs (8)
+  { id: 'ex-15', name: 'Barbell Back Squat', muscle_group: 'Legs', category_type: 'Strength', equipment: 'Barbell' },
+  { id: 'ex-16', name: 'Leg Press', muscle_group: 'Legs', category_type: 'Strength', equipment: 'Machine' },
+  { id: 'ex-17', name: 'Romanian Deadlift (RDL)', muscle_group: 'Legs', category_type: 'Strength', equipment: 'Barbell' },
+  { id: 'ex-18', name: 'Leg Extension', muscle_group: 'Legs', category_type: 'Strength', equipment: 'Machine' },
+  { id: 'ex-19', name: 'Lying Hamstring Curl', muscle_group: 'Legs', category_type: 'Strength', equipment: 'Machine' },
+  { id: 'ex-20', name: 'Bulgarian Split Squat', muscle_group: 'Legs', category_type: 'Strength', equipment: 'Dumbbell' },
+  { id: 'ex-21', name: 'Standing Calf Raise', muscle_group: 'Legs', category_type: 'Strength', equipment: 'Machine' },
+  { id: 'ex-22', name: 'Sumo Deadlift', muscle_group: 'Legs', category_type: 'Strength', equipment: 'Barbell' },
 
-  // Shoulders
-  { id: 'ex-20', name: 'Overhead Barbell Press (OHP)', muscle_group: 'Shoulders', category_type: 'Strength', equipment: 'Barbell' },
-  { id: 'ex-21', name: 'Dumbbell Lateral Raise', muscle_group: 'Shoulders', category_type: 'Strength', equipment: 'Dumbbell' },
-  { id: 'ex-22', name: 'Seated Dumbbell Press', muscle_group: 'Shoulders', category_type: 'Strength', equipment: 'Dumbbell' },
-  { id: 'ex-23', name: 'Face Pulls', muscle_group: 'Shoulders', category_type: 'Strength', equipment: 'Cable' },
+  // Shoulders (6)
+  { id: 'ex-23', name: 'Overhead Barbell Press (OHP)', muscle_group: 'Shoulders', category_type: 'Strength', equipment: 'Barbell' },
+  { id: 'ex-24', name: 'Dumbbell Lateral Raise', muscle_group: 'Shoulders', category_type: 'Strength', equipment: 'Dumbbell' },
+  { id: 'ex-25', name: 'Seated Dumbbell Press', muscle_group: 'Shoulders', category_type: 'Strength', equipment: 'Dumbbell' },
+  { id: 'ex-26', name: 'Face Pulls', muscle_group: 'Shoulders', category_type: 'Strength', equipment: 'Cable' },
+  { id: 'ex-27', name: 'Arnold Press', muscle_group: 'Shoulders', category_type: 'Strength', equipment: 'Dumbbell' },
+  { id: 'ex-28', name: 'Machine Rear Delt Fly', muscle_group: 'Shoulders', category_type: 'Strength', equipment: 'Machine' },
 
-  // Arms
-  { id: 'ex-25', name: 'Barbell Bicep Curl', muscle_group: 'Arms', category_type: 'Strength', equipment: 'Barbell' },
-  { id: 'ex-26', name: 'Incline Dumbbell Curl', muscle_group: 'Arms', category_type: 'Strength', equipment: 'Dumbbell' },
-  { id: 'ex-27', name: 'Hammer Curls', muscle_group: 'Arms', category_type: 'Strength', equipment: 'Dumbbell' },
-  { id: 'ex-28', name: 'Triceps Rope Pushdown', muscle_group: 'Arms', category_type: 'Strength', equipment: 'Cable' },
+  // Arms (6)
+  { id: 'ex-29', name: 'Barbell Bicep Curl', muscle_group: 'Arms', category_type: 'Strength', equipment: 'Barbell' },
+  { id: 'ex-30', name: 'Incline Dumbbell Curl', muscle_group: 'Arms', category_type: 'Strength', equipment: 'Dumbbell' },
+  { id: 'ex-31', name: 'Hammer Curls', muscle_group: 'Arms', category_type: 'Strength', equipment: 'Dumbbell' },
+  { id: 'ex-32', name: 'Triceps Rope Pushdown', muscle_group: 'Arms', category_type: 'Strength', equipment: 'Cable' },
+  { id: 'ex-33', name: 'EZ-Bar Skullcrushers', muscle_group: 'Arms', category_type: 'Strength', equipment: 'Barbell' },
+  { id: 'ex-34', name: 'Preacher Curl', muscle_group: 'Arms', category_type: 'Strength', equipment: 'Machine' },
 
-  // Core & Cardio
-  { id: 'ex-31', name: 'Hanging Leg Raise', muscle_group: 'Core', category_type: 'Bodyweight', equipment: 'Bodyweight' },
-  { id: 'ex-32', name: 'Cable Rope Crunch', muscle_group: 'Core', category_type: 'Strength', equipment: 'Cable' },
-  { id: 'ex-35', name: 'Treadmill Running', muscle_group: 'Legs', category_type: 'Cardio', equipment: 'Machine' },
+  // Core & Cardio (6)
+  { id: 'ex-35', name: 'Hanging Leg Raise', muscle_group: 'Core', category_type: 'Bodyweight', equipment: 'Bodyweight' },
+  { id: 'ex-36', name: 'Cable Rope Crunch', muscle_group: 'Core', category_type: 'Strength', equipment: 'Cable' },
+  { id: 'ex-37', name: 'Plank', muscle_group: 'Core', category_type: 'Bodyweight', equipment: 'Bodyweight' },
+  { id: 'ex-38', name: 'Ab Wheel Rollout', muscle_group: 'Core', category_type: 'Bodyweight', equipment: 'Bodyweight' },
+  { id: 'ex-39', name: 'Treadmill Running', muscle_group: 'Legs', category_type: 'Cardio', equipment: 'Machine' },
+  { id: 'ex-40', name: 'Stationary Rowing Machine', muscle_group: 'Back', category_type: 'Cardio', equipment: 'Machine' },
 ];
 
 // ── Default Preset Routines ───────────────────────────────────────────────────
@@ -204,9 +218,9 @@ export const DEFAULT_ROUTINES: Routine[] = [
     time_of_day: 'Pagi',
     description: 'Fokus pada bicep, tricep, dan lateral delts.',
     exercises: [
-      { exercise_id: 'ex-21', target_sets: 4, target_reps: '12-15', target_weight_kg: 10, rest_seconds: 60 },
-      { exercise_id: 'ex-25', target_sets: 4, target_reps: '10-12', target_weight_kg: 30, rest_seconds: 60 },
-      { exercise_id: 'ex-28', target_sets: 4, target_reps: '12', target_weight_kg: 25, rest_seconds: 60 },
+      { exercise_id: 'ex-24', target_sets: 4, target_reps: '12-15', target_weight_kg: 10, rest_seconds: 60 },
+      { exercise_id: 'ex-29', target_sets: 4, target_reps: '10-12', target_weight_kg: 30, rest_seconds: 60 },
+      { exercise_id: 'ex-32', target_sets: 4, target_reps: '12', target_weight_kg: 25, rest_seconds: 60 },
     ],
   },
   {
@@ -216,9 +230,9 @@ export const DEFAULT_ROUTINES: Routine[] = [
     time_of_day: 'Pagi',
     description: 'Fokus pada ketebalan latissimus dan kekuatan core.',
     exercises: [
-      { exercise_id: 'ex-10', target_sets: 3, target_reps: '5', target_weight_kg: 100, rest_seconds: 120 },
-      { exercise_id: 'ex-7', target_sets: 4, target_reps: '10-12', target_weight_kg: 55, rest_seconds: 90 },
-      { exercise_id: 'ex-8', target_sets: 3, target_reps: '10', target_weight_kg: 50, rest_seconds: 60 },
+      { exercise_id: 'ex-11', target_sets: 3, target_reps: '5', target_weight_kg: 100, rest_seconds: 120 },
+      { exercise_id: 'ex-8', target_sets: 4, target_reps: '10-12', target_weight_kg: 55, rest_seconds: 90 },
+      { exercise_id: 'ex-9', target_sets: 3, target_reps: '10', target_weight_kg: 50, rest_seconds: 60 },
     ],
   },
   {
