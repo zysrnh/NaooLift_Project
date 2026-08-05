@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     const { to, subject, text, html } = body;
 
     const smtpUser = process.env.SMTP_USER || 'naooolaf@gmail.com';
-    const rawPass = process.env.SMTP_PASS || 'lrls ihmy swvq wfnp';
+    const rawPass = process.env.SMTP_PASS || 'cvat mdru mghh akay';
     const smtpPass = rawPass.replace(/\s+/g, '');
 
     const transporter = nodemailer.createTransport({
