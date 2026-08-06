@@ -55,22 +55,22 @@ export async function POST(request: Request) {
         <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #05090D; padding: 40px 16px;">
           <tr>
             <td align="center">
-              <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #0D1520; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.12); boxShadow: 0 20px 50px rgba(0,0,0,0.8); overflow: hidden;">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #0D1520; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.12); boxShadow: 0 16px 40px rgba(0,0,0,0.8); overflow: hidden;">
                 
-                <!-- 1. Header Banner with Official NaooLift Logo -->
+                <!-- 1. Sleek Header Banner with Official NaooLift Logo (Sharp & Less Rounded) -->
                 <tr>
-                  <td align="center" style="padding: 36px 32px 24px 32px; background: linear-gradient(180deg, #14202E 0%, #0D1520 100%); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                    <img src="${logoUrl}" alt="NaooLift Logo" width="160" style="display: block; width: 160px; height: auto; margin-bottom: 16px; filter: drop-shadow(0 4px 16px rgba(59, 130, 246, 0.4));" />
-                    <div style="display: inline-block; background-color: rgba(59, 130, 246, 0.15); color: #60A5FA; font-size: 11px; font-weight: 800; padding: 5px 14px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1.5px; border: 1px solid rgba(59, 130, 246, 0.3);">
+                  <td align="center" style="padding: 32px 28px 20px 28px; background: linear-gradient(180deg, #14202E 0%, #0D1520 100%); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+                    <img src="${logoUrl}" alt="NaooLift Logo" width="150" style="display: block; width: 150px; height: auto; margin-bottom: 14px; filter: drop-shadow(0 4px 14px rgba(59, 130, 246, 0.4));" />
+                    <div style="display: inline-block; background-color: rgba(59, 130, 246, 0.15); color: #60A5FA; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1.2px; border: 1px solid rgba(59, 130, 246, 0.3);">
                       OFFICIAL GYM NOTIFICATION
                     </div>
                   </td>
                 </tr>
 
-                <!-- 2. Message Body Section -->
+                <!-- 2. Sleek Message Body Section (Sharp Corners) -->
                 <tr>
-                  <td style="padding: 36px 32px;">
-                    <div style="background-color: #141E28; border-radius: 12px; border-left: 4px solid #3B82F6; border: 1px solid rgba(255, 255, 255, 0.08); border-left-width: 4px; border-left-color: #3B82F6; padding: 24px;">
+                  <td style="padding: 32px 28px;">
+                    <div style="background-color: #141E28; border-radius: 6px; border-left: 4px solid #3B82F6; border: 1px solid rgba(255, 255, 255, 0.08); border-left-width: 4px; border-left-color: #3B82F6; padding: 22px;">
                       <p style="font-size: 15px; line-height: 1.8; color: #F1F5F9; margin: 0; white-space: pre-line;">
                         ${text || 'Pesan otomatis dari NaooLift Gym System.'}
                       </p>
@@ -80,8 +80,8 @@ export async function POST(request: Request) {
 
                 <!-- 3. Footer Stamp & Copyright -->
                 <tr>
-                  <td align="center" style="padding: 24px 32px 36px 32px; background-color: #0A0F17; border-top: 1px solid rgba(255, 255, 255, 0.06);">
-                    <p style="font-size: 13px; font-weight: 800; color: #FFFFFF; margin: 0 0 6px 0; letter-spacing: -0.01em;">
+                  <td align="center" style="padding: 20px 28px 28px 28px; background-color: #0A0F17; border-top: 1px solid rgba(255, 255, 255, 0.06);">
+                    <p style="font-size: 13px; font-weight: 800; color: #FFFFFF; margin: 0 0 4px 0; letter-spacing: -0.01em;">
                       NAOOLIFT HIGH-PERFORMANCE SYSTEM
                     </p>
                     <p style="font-size: 11px; color: #64748B; margin: 0; line-height: 1.5;">

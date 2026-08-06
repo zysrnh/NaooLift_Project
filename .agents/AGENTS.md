@@ -1,19 +1,14 @@
-# NAOOLIFT AGENT DESIGN & CODING RULES
+# NaooLift System Architecture & Design Guidelines
 
-## 🎨 Solid Anti-Slop Palette (No Glass, No Pills, No AI Clichés)
-- **Midnight**: `#090F15` (Solid Canvas Background)
-- **Mountainside**: `#262E36` (Solid Card Surfaces & Panels)
-- **Apres Ski**: `#6C6D74` (Crisp Borders & Divider Lines)
-- **Slopes**: `#B3B7BA` (Secondary Subtext & Meta Data)
-- **Artic**: `#D3D1CE` / `#FFFFFF` (Primary Crisp Typography & Headlines)
+## 1. Page Entrance Animations
+- All page route transitions (Landing Page, Login, Register, Routines, Logger, History, and all Admin Dashboard pages) MUST feature smooth 0.4s-0.5s CSS / Framer Motion entrance animations (`pageEntranceFadeInUp` / `animate-page-entrance`).
+- On route mount, elements fade in smoothly from `translateY(16px)` to `translateY(0)` with a subtle cubic-bezier curve `(0.16, 1, 0.3, 1)`.
 
-## 🚫 Negative Constraints (Banned AI Slop Elements)
-- **NO `rounded-full` / Pill-shaped badges or containers**. Border radius must be crisp (`4px` to `8px`).
-- **NO glassmorphism, NO backdrop-blur, NO background gradients**. All surfaces must use SOLID colors from the palette.
-- **NO AI clichés or badges** ("System Active", "Next-Gen", "Seamless", "Unleash"). Write plain, editorial, utilitarian copy.
-- **NO heavy shadows**. Cards use flat 1px solid `#6C6D74` borders.
+## 2. Sharp & Modern Aesthetics (Strict Anti-Overly-Rounded Rule)
+- Cards, Modals, HTML Email Templates, and Container surfaces MUST use sleek, sharp, modern corners (**maximum 8px border-radius**).
+- Avoid overly rounded pill containers (such as 20px+ rounded dialog cards or 24px rounded input shapes) unless specifically requested for small pill badges.
+- All email HTML templates sent via Gmail SMTP MUST use clean `border-radius: 8px` cards with sharp 6px message containers and 4px tag badges.
 
-## 🔤 Typography & Layout
-- **Headings & Key Metrics**: `Space Grotesk` (tight tracking `-0.02em`, sharp weight).
-- **Body & Controls**: `Manrope` (generous line height `1.6`).
-- **Structure**: Clean bento grid, macro whitespace (`py-16` / `py-24`), solid contrast.
+## 3. Real-Time Admin Avatar & Profile Sync
+- Admin profile photo uploads in `ProfilePage.tsx` automatically save to `localStorage.setItem('naoolift_admin_avatar', base64Data)`.
+- Trigger `window.dispatchEvent(new Event('storage'))` to immediately sync the avatar photo across the Topbar User Dropdown (`UserDropdown.tsx`) and the Zaki Naoo contact card (`ContactsPage.tsx`).
