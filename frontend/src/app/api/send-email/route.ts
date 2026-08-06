@@ -27,14 +27,18 @@ export async function POST(request: Request) {
     const rawPass = process.env.SMTP_PASS || 'cvat mdru mghh akay';
     const smtpPass = rawPass.replace(/\s+/g, '');
 
+    // Use SSL Port 465 for ultra-fast Gmail SMTP connections
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
-      port: 587,
-      secure: false, // true for 465, false for 587
+      port: 465,
+      secure: true, // SSL
       auth: {
         user: smtpUser.trim(),
         pass: smtpPass,
       },
+      connectionTimeout: 6000,
+      greetingTimeout: 6000,
+      socketTimeout: 6000,
     });
 
     const mailOptions = {
