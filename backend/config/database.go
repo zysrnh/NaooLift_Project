@@ -91,7 +91,7 @@ func createTablesIfNotExist(db *sql.DB) {
 	}
 }
 
-// SeedExercises seeds initial exercises into MySQL database
+// SeedExercises seeds complete 40 sequential exercises into MySQL database
 func SeedExercises(db *sql.DB) {
 	var count int
 	err := db.QueryRow("SELECT COUNT(*) FROM exercises").Scan(&count)
@@ -110,27 +110,51 @@ func SeedExercises(db *sql.DB) {
 		id, name, muscle, equipment, instructions string
 	}{
 		{"ex-1", "Barbell Bench Press", "Chest", "Barbell", "Flat bench press focusing on chest development."},
-		{"ex-2", "Incline Dumbbell Press", "Chest", "Dumbbell", "Incline press for upper chest hypertrophy."},
+		{"ex-2", "Incline Dumbbell Press", "Chest", "Dumbbell", "Incline bench press for upper chest."},
 		{"ex-3", "Chest Fly (Cable)", "Chest", "Cable", "Continuous tension chest flyes."},
 		{"ex-4", "Dips (Chest Focus)", "Chest", "Bodyweight", "Leaning forward dips targeting lower chest."},
 		{"ex-5", "Push-Ups", "Chest", "Bodyweight", "Classic chest bodyweight movement."},
-		{"ex-8", "Lat Pulldown", "Back", "Cable", "Upper back and lats width builder."},
-		{"ex-9", "Barbell Bent-Over Row", "Back", "Barbell", "Thick back rowing movement."},
-		{"ex-10", "Seated Cable Row", "Back", "Cable", "Mid-back thickness cable row."},
-		{"ex-11", "Conventional Deadlift", "Back", "Barbell", "Full posterior chain strength builder."},
-		{"ex-15", "Barbell Back Squat", "Legs", "Barbell", "King of leg exercises for quad & glute strength."},
-		{"ex-16", "Leg Press", "Legs", "Machine", "Machine quad isolation leg press."},
-		{"ex-17", "Romanian Deadlift (RDL)", "Legs", "Barbell", "Hamstring and glute hinge movement."},
-		{"ex-23", "Overhead Barbell Press (OHP)", "Shoulders", "Barbell", "Strict vertical shoulder press."},
-		{"ex-24", "Dumbbell Lateral Raise", "Shoulders", "Dumbbell", "Side deltoid isolation."},
-		{"ex-29", "Barbell Bicep Curl", "Arms", "Barbell", "Classic bicep strength builder."},
-		{"ex-32", "Triceps Rope Pushdown", "Arms", "Cable", "Tricep lateral head isolation."},
+		{"ex-6", "Incline Barbell Bench Press", "Chest", "Barbell", "Upper chest barbell press."},
+		{"ex-7", "Decline Chest Press Machine", "Chest", "Machine", "Lower chest isolation press."},
+		{"ex-8", "Pec Deck Fly Machine", "Chest", "Machine", "Machine chest fly isolation."},
+		{"ex-9", "Lat Pulldown", "Back", "Cable", "Lat width vertical pull."},
+		{"ex-10", "Barbell Bent-Over Row", "Back", "Barbell", "Heavy back thickness row."},
+		{"ex-11", "Seated Cable Row", "Back", "Cable", "Mid-back cable row."},
+		{"ex-12", "Conventional Deadlift", "Back", "Barbell", "Full posterior chain strength builder."},
+		{"ex-13", "Pull-Ups (Overhand)", "Back", "Bodyweight", "Strict overhand pull-ups."},
+		{"ex-14", "Single-Arm Dumbbell Row", "Back", "Dumbbell", "Unilateral lat rowing."},
+		{"ex-15", "T-Bar Row", "Back", "Barbell", "Corner bar row for back thickness."},
+		{"ex-16", "Hyperextension", "Back", "Bodyweight", "Lower back & glute extension."},
+		{"ex-17", "Barbell Back Squat", "Legs", "Barbell", "King of leg compound strength."},
+		{"ex-18", "Leg Press", "Legs", "Machine", "Machine quad & glute press."},
+		{"ex-19", "Romanian Deadlift (RDL)", "Legs", "Barbell", "Hamstring & glute hinge."},
+		{"ex-20", "Bulgarian Split Squat", "Legs", "Dumbbell", "Unilateral quad & glute squat."},
+		{"ex-21", "Lying Leg Curl", "Legs", "Machine", "Hamstring isolation curl."},
+		{"ex-22", "Leg Extension", "Legs", "Machine", "Quadriceps isolation extension."},
+		{"ex-23", "Standing Calf Raise", "Legs", "Machine", "Gastrocnemius calf raise."},
+		{"ex-24", "Goblet Squat", "Legs", "Dumbbell", "Front weighted dumbbell squat."},
+		{"ex-25", "Overhead Barbell Press (OHP)", "Shoulders", "Barbell", "Strict vertical shoulder press."},
+		{"ex-26", "Dumbbell Lateral Raise", "Shoulders", "Dumbbell", "Side deltoid isolation."},
+		{"ex-27", "Seated Dumbbell Shoulder Press", "Shoulders", "Dumbbell", "Seated shoulder press."},
+		{"ex-28", "Face Pull (Cable)", "Shoulders", "Cable", "Rear deltoid & rotator cuff pull."},
+		{"ex-29", "Reverse Pec Deck Fly", "Shoulders", "Machine", "Machine rear deltoid flyes."},
+		{"ex-30", "Barbell Bicep Curl", "Arms", "Barbell", "Standing barbell bicep curl."},
+		{"ex-31", "Dumbbell Hammer Curl", "Arms", "Dumbbell", "Brachialis dumbbell hammer curl."},
+		{"ex-32", "Preacher Curl", "Arms", "Barbell", "Strict isolated bicep curl."},
+		{"ex-33", "Triceps Rope Pushdown", "Arms", "Cable", "Tricep lateral head pushdown."},
+		{"ex-34", "Skull Crusher", "Arms", "Barbell", "Lying triceps extension."},
+		{"ex-35", "Overhead Cable Triceps Extension", "Arms", "Cable", "Long head tricep extension."},
+		{"ex-36", "Hanging Leg Raise", "Core", "Bodyweight", "Abdominal & hip flexor raise."},
+		{"ex-37", "Cable Woodchopper", "Core", "Cable", "Rotational oblique strength."},
+		{"ex-38", "Ab Wheel Rollout", "Core", "Bodyweight", "Full core anti-extension rollout."},
+		{"ex-39", "Treadmill Running", "Legs", "Cardio", "Cardiovascular endurance running."},
+		{"ex-40", "Stationary Exercise Bike", "Legs", "Cardio", "Low-impact cardio cycling."},
 	}
 
 	for _, item := range seedList {
 		_, _ = stmt.Exec(item.id, item.name, item.muscle, item.equipment, item.instructions)
 	}
-	log.Println("🌱 MySQL Database Seeded with Exercises successfully.")
+	log.Println("🌱 MySQL Database Seeded with 40 Exercises successfully.")
 }
 
 func getEnv(key, fallback string) string {
