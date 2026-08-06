@@ -72,6 +72,56 @@ func main() {
 		c.JSON(http.StatusOK, members)
 	})
 
+	// 5. Admin Profile GET Endpoint (MySQL DB Persistent)
+	r.GET("/api/v1/profile", func(c *gin.Context) {
+		var user models.User
+		if dbConnected {
+			err := db.QueryRow("SELECT id, name, email, phone, role, rank_name, COALESCE(avatar_url, '') FROM users WHERE id = 'usr-zaki'").
+				Scan(&user.ID, &user.Name, &user.Email, &user.Phone, &user.Role, &user.RankName, &user.AvatarURL)
+			if err == nil {
+				c.JSON(http.StatusOK, user)
+				return
+			}
+		}
+		c.JSON(http.StatusOK, models.User{
+			ID: "usr-zaki", Name: "Zaki Naoo", Email: "naooolaf@gmail.com", Phone: "08123456789", Role: "Super Administrator & Lead Lifter", RankName: "LEGEND", AvatarURL: "",
+		})
+	})
+
+	// 6. Admin Profile POST Endpoint (Saves Profile & Avatar to MySQL DB!)
+	r.POST("/api/v1/profile", func(c *gin.Context) {
+		var req struct {
+			Name      string `json:"name"`
+			Email     string `json:"email"`
+			Phone     string `json:"phone"`
+			AvatarURL string `json:"avatar_url"`
+		}
+
+		if err := c.ShouldBindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
+			return
+		}
+
+		if dbConnected {
+			_, err := db.Exec(`
+				INSERT INTO users (id, name, email, phone, role, rank_name, avatar_url)
+				VALUES ('usr-zaki', ?, ?, ?, 'Super Administrator & Lead Lifter', 'LEGEND', ?)
+				ON DUPLICATE KEY UPDATE name=?, email=?, phone=?, avatar_url=?
+			`, req.Name, req.Email, req.Phone, req.AvatarURL, req.Name, req.Email, req.Phone, req.AvatarURL)
+
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update database: " + err.Error()})
+				return
+			}
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"status":  "success",
+			"message": "Profile & Avatar updated successfully in MySQL Database!",
+			"data":    req,
+		})
+	})
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"

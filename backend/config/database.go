@@ -39,6 +39,7 @@ func InitDB() (*sql.DB, error) {
 	DB = db
 	createTablesIfNotExist(db)
 	SeedExercises(db)
+	SeedDefaultAdmin(db)
 
 	return db, nil
 }
@@ -53,7 +54,7 @@ func createTablesIfNotExist(db *sql.DB) {
 		phone VARCHAR(32),
 		role VARCHAR(64) DEFAULT 'Member',
 		rank_name VARCHAR(32) DEFAULT 'IRON',
-		avatar_url TEXT,
+		avatar_url LONGTEXT,
 		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 	);
 
@@ -88,6 +89,20 @@ func createTablesIfNotExist(db *sql.DB) {
 		log.Printf("⚠️ Error executing table schema: %v\n", err)
 	} else {
 		log.Println("✅ MySQL database tables verified.")
+	}
+}
+
+// SeedDefaultAdmin ensures default admin usr-zaki exists in MySQL
+func SeedDefaultAdmin(db *sql.DB) {
+	_, err := db.Exec(`
+		INSERT INTO users (id, name, email, phone, role, rank_name, avatar_url)
+		VALUES ('usr-zaki', 'Zaki Naoo', 'naooolaf@gmail.com', '08123456789', 'Super Administrator & Lead Lifter', 'LEGEND', '')
+		ON DUPLICATE KEY UPDATE name=VALUES(name);
+	`)
+	if err != nil {
+		log.Printf("⚠️ Error seeding default admin: %v\n", err)
+	} else {
+		log.Println("👤 Default Admin Zaki Naoo verified in MySQL DB.")
 	}
 }
 
