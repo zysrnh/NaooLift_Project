@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Dumbbell, Lock, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
@@ -13,6 +13,14 @@ export default function LoginPage() {
   const [errorMsg, setErrorMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  // Automatically clear session when on login page so Navbar resets to MASUK & DAFTAR
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('naoolift_user_session');
+      window.dispatchEvent(new Event('storage'));
+    }
+  }, []);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
@@ -21,6 +29,7 @@ export default function LoginPage() {
     try {
       const res = await loginUser(email, password);
       if (res.success && res.user) {
+        window.dispatchEvent(new Event('storage'));
         if (res.user.role === 'admin') {
           router.push('/admin');
         } else {

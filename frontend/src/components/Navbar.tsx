@@ -12,7 +12,12 @@ export default function Navbar() {
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
 
   useEffect(() => {
-    setCurrentUser(getCurrentUser());
+    const checkUser = () => {
+      setCurrentUser(getCurrentUser());
+    };
+    checkUser();
+    window.addEventListener('storage', checkUser);
+    return () => window.removeEventListener('storage', checkUser);
   }, [pathname]);
 
   if (pathname?.startsWith('/admin')) {
