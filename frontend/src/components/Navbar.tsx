@@ -49,24 +49,28 @@ export default function Navbar() {
               pathname === '/' ? 'text-[#FFFFFF] font-bold' : 'text-[#B3B7BA] hover:text-[#D3D1CE]'
             }`}
           >
-            Beranda & Fitur
+            Beranda
           </Link>
-          <Link
-            href="/routines"
-            className={`transition-colors ${
-              pathname === '/routines' ? 'text-[#FFFFFF] font-bold' : 'text-[#B3B7BA] hover:text-[#D3D1CE]'
-            }`}
-          >
-            Jadwal Split
-          </Link>
-          <Link
-            href="/history"
-            className={`transition-colors ${
-              pathname === '/history' ? 'text-[#FFFFFF] font-bold' : 'text-[#B3B7BA] hover:text-[#D3D1CE]'
-            }`}
-          >
-            Analytics & PR
-          </Link>
+          {currentUser && (
+            <>
+              <Link
+                href="/routines"
+                className={`transition-colors ${
+                  pathname === '/routines' ? 'text-[#FFFFFF] font-bold' : 'text-[#B3B7BA] hover:text-[#D3D1CE]'
+                }`}
+              >
+                Jadwal Split
+              </Link>
+              <Link
+                href="/history"
+                className={`transition-colors ${
+                  pathname === '/history' ? 'text-[#FFFFFF] font-bold' : 'text-[#B3B7BA] hover:text-[#D3D1CE]'
+                }`}
+              >
+                Analytics & PR
+              </Link>
+            </>
+          )}
         </nav>
 
         {/* User Profile / Auth Action Button Far Right */}
