@@ -1,9 +1,21 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Play, Calendar, Dumbbell, Trophy, Shield, ArrowUpRight, ArrowRight, Smartphone, CheckCircle2 } from 'lucide-react';
+import { getCurrentUser, UserProfile } from '@/lib/auth';
 
 export default function HomePage() {
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
+
+  useEffect(() => {
+    setCurrentUser(getCurrentUser());
+  }, []);
+
+  const getFeatureHref = (targetUrl: string) => {
+    return currentUser ? targetUrl : '/login';
+  };
+
   const stats = [
     { icon: Shield, number: '6+', label: 'TIER GYM RANKS', sub: 'Iron Novice → Gym God' },
     { icon: Dumbbell, number: '40+', label: 'EXERCISES LOGGED', sub: 'Chest, Back, Arms, Legs' },
@@ -86,7 +98,7 @@ export default function HomePage() {
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <Link
-                href="/logger"
+                href={getFeatureHref('/logger')}
                 className="solid-btn-primary px-8 py-4 text-xs uppercase tracking-wider flex items-center gap-3"
               >
                 <Play className="w-4 h-4 fill-current" />
@@ -94,7 +106,7 @@ export default function HomePage() {
               </Link>
 
               <Link
-                href="/routines"
+                href={getFeatureHref('/routines')}
                 className="solid-btn-secondary px-8 py-4 text-xs uppercase tracking-wider flex items-center gap-3"
               >
                 <Calendar className="w-4 h-4" />
@@ -160,7 +172,7 @@ export default function HomePage() {
               MODUL UTAMA NAOOLIFT
             </h2>
           </div>
-          <Link href="/routines" className="text-xs font-heading font-bold text-[#D3D1CE] hover:text-[#FFFFFF] flex items-center gap-1">
+          <Link href={getFeatureHref('/routines')} className="text-xs font-heading font-bold text-[#D3D1CE] hover:text-[#FFFFFF] flex items-center gap-1">
             EXPLORE ALL FITUR <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -194,7 +206,7 @@ export default function HomePage() {
               <div className="pt-4 flex items-center justify-between">
                 <span className="text-xs font-mono text-[#B3B7BA]">NAOOLIFT MODULE</span>
                 <Link
-                  href={item.link}
+                  href={getFeatureHref(item.link)}
                   className="w-8 h-8 rounded-full bg-[#090F15] flex items-center justify-center text-[#D3D1CE] group-hover:bg-[#D3D1CE] group-hover:text-[#090F15] transition-colors"
                 >
                   <ArrowUpRight className="w-4 h-4" />
@@ -299,7 +311,7 @@ export default function HomePage() {
           </div>
 
           <Link
-            href="/logger"
+            href={getFeatureHref('/logger')}
             className="solid-btn-primary px-10 py-5 text-sm uppercase tracking-wider flex items-center justify-center gap-3 whitespace-nowrap"
           >
             Mulai Catat Sekarang <ArrowRight className="w-5 h-5" />
@@ -310,8 +322,8 @@ export default function HomePage() {
           <span>© 2026 NAOOLIFT. ALL RIGHTS RESERVED.</span>
           <div className="flex items-center gap-4">
             <Link href="/" className="hover:text-[#D3D1CE]">BERANDA</Link>
-            <Link href="/routines" className="hover:text-[#D3D1CE]">JADWAL SPLIT</Link>
-            <Link href="/history" className="hover:text-[#D3D1CE]">ANALYTICS</Link>
+            <Link href={getFeatureHref('/routines')} className="hover:text-[#D3D1CE]">JADWAL SPLIT</Link>
+            <Link href={getFeatureHref('/history')} className="hover:text-[#D3D1CE]">ANALYTICS</Link>
           </div>
         </div>
       </section>
