@@ -27,21 +27,16 @@ export default function Navbar() {
   return (
     <header className="bg-[#090F15] w-full border-b border-[#262E36]/40">
       <div className="w-full px-4 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
-        {/* Brand Logo Image & Typography */}
+        {/* Brand Logo Image with Bright Glow Shadow */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative overflow-hidden rounded-sm">
-            <Image
-              src="/NaooLift.png"
-              alt="NaooLift Logo"
-              width={34}
-              height={34}
-              className="w-auto h-8 drop-shadow-[0_4px_10px_rgba(255,255,255,0.25)] opacity-95 group-hover:opacity-100 transition-opacity"
-            />
-          </div>
-          <span
-            className="text-xl font-black text-[#FFFFFF] tracking-tight uppercase"
-            style={{ fontFamily: '"Space Grotesk", "Plus Jakarta Sans", sans-serif', letterSpacing: '-0.02em' }}
-          >
+          <Image
+            src="/NaooLift.png"
+            alt="NaooLift Logo"
+            width={34}
+            height={34}
+            className="w-auto h-8 drop-shadow-[0_0_12px_rgba(255,255,255,0.45)] group-hover:drop-shadow-[0_0_18px_rgba(255,255,255,0.75)] transition-all"
+          />
+          <span className="font-heading font-extrabold text-xl text-[#D3D1CE] tracking-tight group-hover:text-[#FFFFFF] transition-colors">
             NAOOLIFT
           </span>
         </Link>
