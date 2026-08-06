@@ -33,12 +33,13 @@
   }
 
   h1, h2, h3, h4, h5, h6, .font-heading {
-    font-family: 'Space Grotesk', sans-serif;
-    letter-spacing: -0.02em;
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.025em;
   }
 
   .font-mono {
-    font-family: 'Space Grotesk', monospace;
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: 0.02em;
   }
 }
 
@@ -79,7 +80,7 @@
   background-color: #262E36;
   border: none;
   border-radius: 6px;
-  transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .solid-card:hover {
@@ -126,7 +127,7 @@
   border: none;
   border-radius: 4px;
   color: #D3D1CE;
-  font-family: 'Space Grotesk', monospace;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .solid-input:focus {

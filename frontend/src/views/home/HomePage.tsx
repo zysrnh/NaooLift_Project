@@ -54,7 +54,7 @@ export default function HomePage() {
     { title: 'MANAJEMEN SPLIT MINGGUAN', desc: 'Pengelompokan rutinitas latihan berdasarkan Hari dan Sesi Waktu (Pagi/Siang/Sore).' },
     { title: 'CATATAN SET & BEBAN (KG/LBS)', desc: 'Input per set lengkap dengan unit switcher kg/lbs, repetisi, dan tombol centang finished.' },
     { title: 'REST TIMER & PUSH NOTIFICATION', desc: 'Timer jeda istirahat otomatis dengan suara alarm chime & push notification HP.' },
-    { title: 'AUTOMATED PR DETECTOR', desc: 'Mendeteksi otomatis rekor angkatan terberat (Max Weight) dan repetisi terbanyak.' },
+    { title: 'AUTOMATED PR DETECTOR', desc: 'Mndeteksi otomatis rekor angkatan terberat (Max Weight) dan repetisi terbanyak.' },
     { title: 'GYM RANK TIER GAMIFICATION', desc: 'System level rank dari Tier 1 Iron Novice hingga Tier 6 Gym God / Naoo Legend.' },
     { title: 'GOOGLE CALENDAR & PWA SYNC', desc: 'Dapat di-install di Home Screen iOS/Android dan di-sync ke Google Calendar.' },
   ];
@@ -120,7 +120,7 @@ export default function HomePage() {
               <img
                 src="/hero-gym.jpg"
                 alt="NaooLift Dark Gym Photography"
-                className="w-full h-[380px] sm:h-[460px] object-cover rounded-sm grayscale contrast-125 group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-[380px] sm:h-[460px] object-cover rounded-sm grayscale contrast-125 opacity-95 group-hover:opacity-100 transition-opacity duration-300"
               />
               
               <div className="absolute top-4 right-4 bg-[#090F15] px-3 py-1.5 rounded-sm text-right">
@@ -185,7 +185,7 @@ export default function HomePage() {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-44 object-cover rounded-sm grayscale contrast-125 group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-44 object-cover rounded-sm grayscale contrast-125 opacity-90 group-hover:opacity-100 transition-opacity duration-300"
                   />
                 </div>
 

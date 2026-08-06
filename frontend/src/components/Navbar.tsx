@@ -29,13 +29,15 @@ export default function Navbar() {
       <div className="w-full px-4 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
         {/* Brand Logo Image & Typography */}
         <Link href="/" className="flex items-center gap-3 group">
-          <Image
-            src="/NaooLift.png"
-            alt="NaooLift Logo"
-            width={34}
-            height={34}
-            className="w-auto h-8 drop-shadow-[0_4px_10px_rgba(255,255,255,0.25)] transition-transform group-hover:scale-105"
-          />
+          <div className="relative overflow-hidden rounded-sm">
+            <Image
+              src="/NaooLift.png"
+              alt="NaooLift Logo"
+              width={34}
+              height={34}
+              className="w-auto h-8 drop-shadow-[0_4px_10px_rgba(255,255,255,0.25)] opacity-95 group-hover:opacity-100 transition-opacity"
+            />
+          </div>
           <span
             className="text-xl font-black text-[#FFFFFF] tracking-tight uppercase"
             style={{ fontFamily: '"Space Grotesk", "Plus Jakarta Sans", sans-serif', letterSpacing: '-0.02em' }}
