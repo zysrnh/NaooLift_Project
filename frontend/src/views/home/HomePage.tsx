@@ -54,7 +54,7 @@ export default function HomePage() {
     { title: 'MANAJEMEN SPLIT MINGGUAN', desc: 'Pengelompokan rutinitas latihan berdasarkan Hari dan Sesi Waktu (Pagi/Siang/Sore).' },
     { title: 'CATATAN SET & BEBAN (KG/LBS)', desc: 'Input per set lengkap dengan unit switcher kg/lbs, repetisi, dan tombol centang finished.' },
     { title: 'REST TIMER & PUSH NOTIFICATION', desc: 'Timer jeda istirahat otomatis dengan suara alarm chime & push notification HP.' },
-    { title: 'AUTOMATED PR DETECTOR', desc: 'Mndeteksi otomatis rekor angkatan terberat (Max Weight) dan repetisi terbanyak.' },
+    { title: 'AUTOMATED PR DETECTOR', desc: 'Mendeteksi otomatis rekor angkatan terberat (Max Weight) dan repetisi terbanyak.' },
     { title: 'GYM RANK TIER GAMIFICATION', desc: 'System level rank dari Tier 1 Iron Novice hingga Tier 6 Gym God / Naoo Legend.' },
     { title: 'GOOGLE CALENDAR & PWA SYNC', desc: 'Dapat di-install di Home Screen iOS/Android dan di-sync ke Google Calendar.' },
   ];
@@ -115,21 +115,26 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* Full Bleed Image with Opacity Overlay */}
           <div className="lg:col-span-5 relative">
-            <div className="solid-card p-2 bg-[#090F15] relative overflow-hidden group">
+            <div className="relative w-full h-[400px] sm:h-[480px] rounded-md overflow-hidden bg-[#090F15] group shadow-2xl border border-[#262E36]/60">
               <img
                 src="/hero-gym.jpg"
                 alt="NaooLift Dark Gym Photography"
-                className="w-full h-[380px] sm:h-[460px] object-cover rounded-sm grayscale contrast-125 opacity-95 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-75 group-hover:opacity-90 transition-opacity duration-500"
               />
               
-              <div className="absolute top-4 right-4 bg-[#090F15] px-3 py-1.5 rounded-sm text-right">
+              {/* Atmospheric Gradient Blend */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#090F15] via-[#090F15]/40 to-transparent pointer-events-none" />
+
+              {/* Glassmorphism Badges */}
+              <div className="absolute top-4 right-4 bg-[#090F15]/80 backdrop-blur-md px-3.5 py-2 rounded-sm border border-[#262E36]/80 text-right shadow-lg">
                 <span className="text-[9px] font-mono text-[#B3B7BA] uppercase block">SYSTEM READY</span>
-                <span className="text-[11px] font-heading font-bold text-[#D3D1CE] uppercase">FOR WORKOUT LOGGING</span>
+                <span className="text-[11px] font-heading font-bold text-[#D3D1CE] uppercase tracking-wider">FOR WORKOUT LOGGING</span>
               </div>
 
-              <div className="absolute bottom-4 left-4 right-4 bg-[#090F15] p-3 text-xs font-mono flex items-center justify-between">
-                <span className="text-[#D3D1CE] font-bold">EST. 2026 / NAOOLIFT</span>
+              <div className="absolute bottom-4 left-4 right-4 bg-[#090F15]/80 backdrop-blur-md p-3.5 rounded-sm border border-[#262E36]/80 text-xs font-mono flex items-center justify-between shadow-lg">
+                <span className="text-[#D3D1CE] font-bold tracking-wider">EST. 2026 / NAOOLIFT</span>
                 <span className="text-[#B3B7BA] uppercase text-[10px]">SOLID EDITORIAL SYSTEM</span>
               </div>
             </div>
@@ -181,12 +186,13 @@ export default function HomePage() {
           {featuredModules.map((item, idx) => (
             <div key={idx} className="solid-card p-6 flex flex-col justify-between space-y-6 group">
               <div className="space-y-4">
-                <div className="solid-card p-1.5 bg-[#090F15] overflow-hidden">
+                <div className="relative w-full h-44 rounded-sm overflow-hidden bg-[#090F15]">
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-44 object-cover rounded-sm grayscale contrast-125 opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                    className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-75 group-hover:opacity-90 transition-opacity duration-300"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#090F15]/80 to-transparent pointer-events-none" />
                 </div>
 
                 <div>
